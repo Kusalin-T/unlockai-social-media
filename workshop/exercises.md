@@ -16,10 +16,10 @@
 - [ ] เช็คว่า IG + เพจ อยู่ใน Business Suite เดียวกัน
 - [ ] เปิดหน้า Inbox → Automations ทิ้งไว้
 
-## ✅ Block 4 — Auto-Reply
-- [ ] รัน `/autoreply` โหมดสร้างชุด → ได้ `output/autoreply-kit.md`
-- [ ] วาง Instant Reply + FAQ อย่างน้อย 3 อันใน Business Suite
-- [ ] ทดสอบ: ให้เพื่อนข้าง ๆ คอมเมนต์/DM เพจคุณด้วย keyword แล้วดูบอทตอบ 🎉
+## ✅ Block 4 — Comment-to-DM Campaign
+- [ ] รัน `/autoreply` → ออกแบบแคมเปญ "คอมเมนต์ <KEYWORD> รับ <ของ>" → ได้ `output/campaign-<keyword>.md`
+- [ ] ตั้ง automation ใน Business Suite (หรือ ManyChat) ตามวิธีท้ายไฟล์
+- [ ] ทดสอบจริง: ให้เพื่อนข้าง ๆ คอมเมนต์ keyword ใต้โพสต์คุณ → บอทตอบใต้คอมเมนต์ + DM เด้งถึงเพื่อน 🎉
 
 ## 🏠 กลับบ้าน (ถ้าไม่จบในคลาส ทำต่อได้เลย)
 - [ ] `/ideas` หัวข้อที่อยากดันเดือนนี้

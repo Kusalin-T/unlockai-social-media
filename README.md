@@ -10,7 +10,7 @@ Starter kit สำหรับใช้ AI ทำงาน social media จร�
 | Caption Writer | `/caption` | เขียนแคปชั่นตามแบรนด์ 3 แบบ + แฮชแท็ก |
 | Content Ideas | `/ideas` | ไอเดียคอนเทนต์/hook 10 อัน จากหัวข้อเดียว |
 | Content Calendar | `/calendar` | แผนโพสต์ 7 วัน เป็นไฟล์เก็บไว้ใช้ต่อ |
-| Auto-Reply Builder | `/autoreply` | ร่างคำตอบคอมเมนต์/DM + สร้างตาราง keyword→คำตอบ เอาไปวางใน Meta Business Suite |
+| Comment-to-DM Campaign | `/autoreply` | ออกแบบแคมเปญ "คอมเมนต์คำนี้ รับของทาง DM" — CTA, ข้อความตอบใต้คอมเมนต์, ข้อความ DM พร้อมติดตั้ง |
 
 ## Quick start (เริ่มยังไง)
 
