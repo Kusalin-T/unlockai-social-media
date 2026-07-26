@@ -79,8 +79,10 @@ tested to work on **5.1**, so nobody needs to install anything. Check with `$PSV
 → PowerShell does **not** expand `~` when passing arguments to `git`, so
 `git clone … ~/Downloads/x` creates a real folder called `~`. Then `cd ~/Downloads/x` (which *does*
 expand) reports "path not found" — same machine, two different places. Use `$HOME` / `Join-Path`
-as in SETUP.md. Remove the stray folder with `Remove-Item -LiteralPath '~' -Recurse -Force` —
-`-LiteralPath` matters, or PowerShell expands the `~` again and you delete the wrong thing.
+as in SETUP.md. Go back to the folder where the clone command was run, confirm the stray folder
+with `Get-Item -LiteralPath '.\~'`, then preserve it by renaming it:
+`Move-Item -LiteralPath '.\~' -Destination (".\tilde-backup-" + (Get-Date -Format 'yyyyMMdd-HHmmss'))`.
+Do not delete it — it may contain work from the failed setup.
 
 **`Expand-Archive` / `Move-Item` fails ("already exists" / "in use")**
 → First close any Explorer or terminal window currently inside the folder. If the target exists,

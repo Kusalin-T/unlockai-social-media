@@ -32,6 +32,19 @@ $bootstrapTemp = Join-Path $env:TEMP ("unlockai-bootstrap-" + [guid]::NewGuid().
 $archivePath = Join-Path $bootstrapTemp "unlockai.zip"
 $extractPath = Join-Path $bootstrapTemp "extract"
 
+# A student may launch this script while PowerShell is inside the workspace it
+# needs to rename. Move the shell out first so Windows does not hold that folder
+# open and block the timestamped backup.
+$targetFullPath = [IO.Path]::GetFullPath($TargetFolder)
+$currentFullPath = [IO.Path]::GetFullPath((Get-Location).Path)
+$targetPrefix = $targetFullPath.TrimEnd([char]'\') + [IO.Path]::DirectorySeparatorChar
+$insideTarget = [string]::Equals(
+    $currentFullPath, $targetFullPath, [StringComparison]::OrdinalIgnoreCase
+) -or $currentFullPath.StartsWith($targetPrefix, [StringComparison]::OrdinalIgnoreCase)
+if ($insideTarget) {
+    Set-Location -LiteralPath $env:TEMP
+}
+
 try {
     # Back up BEFORE the move. Move-Item onto an existing folder either fails or,
     # with -Force, moves the source *inside* it and still reports success.

@@ -68,6 +68,22 @@ class WindowsSetupDocumentationTest(unittest.TestCase):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn("windows/README.md", readme)
 
+    def test_optional_git_does_not_fail_health_check(self):
+        script = (ROOT / "windows" / "check-setup.ps1").read_text(encoding="utf-8")
+        self.assertIn('[switch] $Optional', script)
+        self.assertIn('Test-Item "git" { (git --version) 2>$null } -Optional', script)
+
+    def test_redownload_leaves_target_before_renaming_it(self):
+        script = (ROOT / "windows" / "get-workspace.ps1").read_text(encoding="utf-8")
+        self.assertIn("if ($insideTarget)", script)
+        self.assertIn("Set-Location -LiteralPath $env:TEMP", script)
+
+    def test_tilde_recovery_preserves_instead_of_deletes(self):
+        for name in ("DEBUG.md", "SETUP.md", "windows/README.md"):
+            doc = (ROOT / name).read_text(encoding="utf-8")
+            with self.subTest(doc=name):
+                self.assertNotIn("Remove-Item -LiteralPath '~'", doc)
+
 
 if __name__ == "__main__":
     unittest.main()

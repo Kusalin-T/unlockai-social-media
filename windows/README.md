@@ -87,11 +87,12 @@ $targetFolder = Join-Path $HOME "Downloads\unlockai-social-media"
 git clone https://github.com/Kusalin-T/unlockai-social-media.git "$targetFolder"
 ```
 
-To remove a stray one, `-LiteralPath` is required — otherwise PowerShell expands the `~` and you
-delete your home directory's contents instead:
+To preserve a stray one, return to the folder where the clone command was run, inspect it, then
+rename it. `-LiteralPath` is required so PowerShell does not expand `~`:
 
 ```powershell
-Remove-Item -LiteralPath '~' -Recurse -Force
+Get-Item -LiteralPath '.\~'
+Move-Item -LiteralPath '.\~' -Destination (".\tilde-backup-" + (Get-Date -Format 'yyyyMMdd-HHmmss'))
 ```
 
 ### 4. `curl` in PowerShell is not curl

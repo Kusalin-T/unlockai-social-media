@@ -18,10 +18,16 @@ param(
 $problems = @()
 
 function Test-Item {
-    param([string] $Label, [scriptblock] $Check)
+    param(
+        [string] $Label,
+        [scriptblock] $Check,
+        [switch] $Optional
+    )
     try { $result = & $Check } catch { $result = $null }
     if ($result) {
         Write-Host ("  [ok]   {0,-26} {1}" -f $Label, $result) -ForegroundColor Green
+    } elseif ($Optional) {
+        Write-Host ("  [info] {0,-26} not installed (not required)" -f $Label) -ForegroundColor DarkGray
     } else {
         Write-Host ("  [--]   {0,-26} not found" -f $Label) -ForegroundColor Yellow
         $script:problems += $Label
@@ -38,7 +44,7 @@ Write-Host ""
 Write-Host "Tools" -ForegroundColor Cyan
 Test-Item "claude"  { (claude --version) 2>$null }
 Test-Item "py"      { (py --version) 2>$null }
-Test-Item "git (optional)" { (git --version) 2>$null }
+Test-Item "git" { (git --version) 2>$null } -Optional
 
 # The Microsoft Store stub answers `python` but isn't a real interpreter.
 $python = Get-Command python -ErrorAction SilentlyContinue

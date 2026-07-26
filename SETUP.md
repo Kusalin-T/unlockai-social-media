@@ -125,7 +125,7 @@ start with `/brand`.
 | Windows complains about execution policy | In the same PowerShell window run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force`, then run the install line again |
 | Login fails | Open the login link in Chrome instead of your default browser |
 | Slow / stuck | Check your internet, type `/quit`, then reopen `claude` |
-| Windows: a folder literally named `~` appeared | You used `~` in a `git` command. Remove it with `Remove-Item -LiteralPath '~' -Recurse -Force` and use the Windows blocks above |
+| Windows: a folder literally named `~` appeared | You used `~` in a `git` command. Preserve it with the timestamped rename in DEBUG.md, then use the Windows blocks above |
 | Windows: `A parameter cannot be found that matches parameter name 'fsSL'` | You pasted the **Mac** `curl` line into PowerShell, where `curl` is an alias for `Invoke-WebRequest`. Use the Windows block above |
 | Windows: `python` opens the Microsoft Store | Use `py` instead (`py bot\run.py`) |
 
