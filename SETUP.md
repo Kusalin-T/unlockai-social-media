@@ -57,13 +57,48 @@ If the AI replies and the download is complete = you're ready 🎉
 
 ## (Optional) Download it yourself — if you'd rather not go through the AI
 
-**If you already have git:**
+**Mac — if you already have git:**
 ```
 git clone https://github.com/Kusalin-T/unlockai-social-media.git ~/Downloads/unlockai-social-media
 cd ~/Downloads/unlockai-social-media
 claude
 ```
 If that folder already exists, rename it first; never delete an existing workshop folder.
+
+**Windows (PowerShell) — if you already have git:**
+
+Copy the **whole block**. Don't put `~` in the `git` line: PowerShell doesn't expand `~` for `git`,
+so you'd get a folder literally named `~` and the next `cd` would fail.
+```
+$targetFolder = Join-Path $HOME "Downloads\unlockai-social-media"
+if (Test-Path -LiteralPath $targetFolder) {
+  Move-Item -LiteralPath $targetFolder -Destination ("$targetFolder-backup-" + (Get-Date -Format 'yyyyMMdd-HHmmss'))
+}
+git clone https://github.com/Kusalin-T/unlockai-social-media.git "$targetFolder"
+cd $targetFolder
+claude
+```
+
+**Windows (PowerShell) — no git:**
+
+Nothing to install — this uses only built-in PowerShell. Copy the **whole block**:
+```
+$ProgressPreference = 'SilentlyContinue'
+$targetFolder = Join-Path $HOME "Downloads\unlockai-social-media"
+$bootstrapTemp = Join-Path $env:TEMP ("unlockai-bootstrap-" + [guid]::NewGuid().ToString("N"))
+$archivePath = Join-Path $bootstrapTemp "unlockai.zip"
+$extractPath = Join-Path $bootstrapTemp "extract"
+if (Test-Path -LiteralPath $targetFolder) {
+  Move-Item -LiteralPath $targetFolder -Destination ("$targetFolder-backup-" + (Get-Date -Format 'yyyyMMdd-HHmmss'))
+}
+New-Item -ItemType Directory -Force -Path $extractPath | Out-Null
+Invoke-WebRequest -Uri "https://codeload.github.com/Kusalin-T/unlockai-social-media/zip/refs/heads/master" -Headers @{"Cache-Control" = "no-cache"} -OutFile $archivePath
+Expand-Archive -Path $archivePath -DestinationPath $extractPath
+Move-Item -LiteralPath (Join-Path $extractPath "unlockai-social-media-master") -Destination $targetFolder
+Remove-Item -LiteralPath $bootstrapTemp -Recurse -Force -ErrorAction SilentlyContinue
+cd $targetFolder
+claude
+```
 
 **No git (Mac):**
 ```
@@ -90,5 +125,9 @@ start with `/brand`.
 | Windows complains about execution policy | In the same PowerShell window run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force`, then run the install line again |
 | Login fails | Open the login link in Chrome instead of your default browser |
 | Slow / stuck | Check your internet, type `/quit`, then reopen `claude` |
+| Windows: a folder literally named `~` appeared | You used `~` in a `git` command. Remove it with `Remove-Item -LiteralPath '~' -Recurse -Force` and use the Windows blocks above |
+| Windows: `A parameter cannot be found that matches parameter name 'fsSL'` | You pasted the **Mac** `curl` line into PowerShell, where `curl` is an alias for `Invoke-WebRequest`. Use the Windows block above |
+| Windows: `python` opens the Microsoft Store | Use `py` instead (`py bot\run.py`) |
 
 More detail — and the fixes the AI applies itself — are in [DEBUG.md](DEBUG.md).
+Windows-only notes and ready-to-run scripts: [windows/README.md](windows/README.md).

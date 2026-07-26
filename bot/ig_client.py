@@ -181,7 +181,7 @@ class IGGraphClient:
 def _update_env(env_path, key, value):
     """Set KEY=value in .env (replace in place or append), preserving other lines."""
     env_path = Path(env_path)
-    lines = env_path.read_text().splitlines() if env_path.exists() else []
+    lines = env_path.read_text(encoding="utf-8").splitlines() if env_path.exists() else []
     prefix = f"{key}="
     for i, line in enumerate(lines):
         if line.startswith(prefix):
@@ -189,7 +189,7 @@ def _update_env(env_path, key, value):
             break
     else:
         lines.append(f"{key}={value}")
-    env_path.write_text("\n".join(lines) + "\n")
+    env_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     try:
         env_path.chmod(0o600)
     except OSError:

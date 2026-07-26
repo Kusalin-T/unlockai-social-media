@@ -26,5 +26,48 @@ class SetupDocumentationSafetyTest(unittest.TestCase):
         self.assertNotIn('$env:TEMP\\unlockai.zip', bootstrap)
 
 
+class WindowsSetupDocumentationTest(unittest.TestCase):
+    """Windows-specific regressions found in workshop acceptance testing."""
+
+    def test_windows_download_backs_up_before_moving(self):
+        """Move-Item onto an existing folder nests the archive inside it instead
+        of replacing it, so the backup must happen first, in the block itself."""
+        for name in ("BOOTSTRAP.md", "SETUP.md"):
+            doc = (ROOT / name).read_text(encoding="utf-8")
+            with self.subTest(doc=name):
+                self.assertIn("-backup-", doc)
+                backup_at = doc.index("-backup-")
+                move_at = doc.index('Move-Item -LiteralPath (Join-Path $extractPath')
+                self.assertLess(backup_at, move_at)
+
+    def test_no_move_item_force_onto_target(self):
+        """-Force is what made a re-run silently nest the folder and still
+        report success."""
+        for name in ("BOOTSTRAP.md", "SETUP.md", "DEBUG.md"):
+            doc = (ROOT / name).read_text(encoding="utf-8")
+            with self.subTest(doc=name):
+                self.assertNotIn('unlockai-social-media" -Force', doc)
+
+    def test_windows_never_uses_tilde_with_git(self):
+        """PowerShell does not expand ~ for native programs: `git clone ... ~/x`
+        creates a folder literally named ~."""
+        setup = (ROOT / "SETUP.md").read_text(encoding="utf-8")
+        windows_section = setup[setup.index("**Windows (PowerShell) — if you already have git:**"):]
+        self.assertNotIn("~/Downloads", windows_section)
+        self.assertIn('Join-Path $HOME "Downloads\\unlockai-social-media"', windows_section)
+
+    def test_setup_offers_a_windows_path_without_git(self):
+        setup = (ROOT / "SETUP.md").read_text(encoding="utf-8")
+        self.assertIn("**Windows (PowerShell) — no git:**", setup)
+        self.assertIn("Expand-Archive", setup)
+
+    def test_windows_helper_scripts_are_documented_and_present(self):
+        for script in ("check-setup.ps1", "get-workspace.ps1"):
+            with self.subTest(script=script):
+                self.assertTrue((ROOT / "windows" / script).is_file())
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("windows/README.md", readme)
+
+
 if __name__ == "__main__":
     unittest.main()

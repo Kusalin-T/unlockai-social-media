@@ -2,6 +2,11 @@ brand/brand.md
 .DS_Store
 dist-*.zip
 
+# Windows shell junk + workspace backups made by a re-run of the setup
+Thumbs.db
+desktop.ini
+unlockai-social-media-backup-*/
+
 # secrets + per-student runtime state — never commit
 .env
 bot/campaign.json

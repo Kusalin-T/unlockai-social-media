@@ -52,5 +52,18 @@ Then keep going — today's goal is `/autoreply`:
 - `brand/` — your brand file (created by `/brand`)
 - `output/` — work the AI writes for you (captions, posting plans, comment-to-DM campaigns)
 - `workshop/` — the in-class exercises
+- `windows/` — Windows-only notes + two helper scripts ([windows/README.md](windows/README.md))
+
+## On Windows?
+
+Everything above works as written in PowerShell. If anything looks off, there's a read-only
+health check that tells you what's missing in one screen:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File windows\check-setup.ps1
+```
+
+Windows-specific gotchas (use `py` not `python`, don't use `~` with `git`, why a re-run used to
+nest the folder) are collected in **[windows/README.md](windows/README.md)**.
 
 Stuck → DM [@butabuilds](https://instagram.com/butabuilds)

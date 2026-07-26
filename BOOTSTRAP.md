@@ -75,16 +75,36 @@ tar -xzf "$bootstrap_dir/unlockai.tgz" -C "$target_folder" --strip-components=1
 ```
 
 **C. No git — Windows PowerShell (Invoke-WebRequest + Expand-Archive):**
+
+Run this as one block — it backs the old workspace up itself, so it is safe to run again after a
+failed attempt. Tested on Windows PowerShell 5.1 (what Windows 11 ships) and on PowerShell 7.
 ```
+$ProgressPreference = 'SilentlyContinue'
 $targetFolder = Join-Path $HOME "Downloads\unlockai-social-media"
 $bootstrapTemp = Join-Path $env:TEMP ("unlockai-bootstrap-" + [guid]::NewGuid().ToString("N"))
 $archivePath = Join-Path $bootstrapTemp "unlockai.zip"
 $extractPath = Join-Path $bootstrapTemp "extract"
+if (Test-Path -LiteralPath $targetFolder) {
+  $backup = "$targetFolder-backup-" + (Get-Date -Format 'yyyyMMdd-HHmmss')
+  Move-Item -LiteralPath $targetFolder -Destination $backup
+  Write-Host "Kept your previous workspace as: $backup"
+}
 New-Item -ItemType Directory -Force -Path $extractPath | Out-Null
 Invoke-WebRequest -Uri "https://codeload.github.com/Kusalin-T/unlockai-social-media/zip/refs/heads/master" -Headers @{"Cache-Control" = "no-cache"} -OutFile $archivePath
 Expand-Archive -Path $archivePath -DestinationPath $extractPath
-Move-Item (Join-Path $extractPath "unlockai-social-media-master") $targetFolder
+Move-Item -LiteralPath (Join-Path $extractPath "unlockai-social-media-master") -Destination $targetFolder
+Remove-Item -LiteralPath $bootstrapTemp -Recurse -Force -ErrorAction SilentlyContinue
 ```
+
+> **Don't "simplify" this block.** Three things in it are load-bearing on Windows:
+> the backup runs *before* the move, because `Move-Item` onto a folder that already exists either
+> fails outright or (with `-Force`) moves the source *inside* it and still reports success, leaving
+> `unlockai-social-media\unlockai-social-media-master`; `-LiteralPath` keeps paths with spaces or
+> `[` `]` in the student's user name working; and the final `Remove-Item` stops a temp copy of the
+> repo being left behind on every attempt.
+
+More Windows detail, and every snippet here as a ready-to-run script, is in
+[windows/README.md](windows/README.md).
 
 If a command asks for a GitHub username/password, the repo is public — you do **not** need to log
 in; use the archive method (B or C) instead. See DEBUG.md → "git asks for a username".

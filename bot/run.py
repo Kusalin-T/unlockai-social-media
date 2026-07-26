@@ -58,7 +58,7 @@ def load_env(path: Path) -> dict:
     env = {}
     if not path.exists():
         return env
-    for line in path.read_text().splitlines():
+    for line in path.read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if not line or line.startswith("#") or "=" not in line:
             continue
@@ -69,7 +69,7 @@ def load_env(path: Path) -> dict:
 
 def save_env_value(path: Path, key: str, value: str) -> None:
     """Set one value without replacing the student's other local settings."""
-    lines = path.read_text().splitlines() if path.exists() else []
+    lines = path.read_text(encoding="utf-8").splitlines() if path.exists() else []
     prefix = f"{key}="
     for i, line in enumerate(lines):
         if line.startswith(prefix):
@@ -77,11 +77,9 @@ def save_env_value(path: Path, key: str, value: str) -> None:
             break
     else:
         lines.append(f"{key}={value}")
-    path.write_text("\n".join(lines) + "\n")
-    try:
-        path.chmod(0o600)
-    except OSError:
-        pass
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    # POSIX-only; on Windows this just clears the read-only bit. The file is
+    # gitignored either way.
     try:
         path.chmod(0o600)
     except OSError:
@@ -95,7 +93,7 @@ def load_campaign(path: Path) -> dict:
         sys.exit(f"No campaign file at {path}.\n"
                  f"Copy campaign.example.json to campaign.json and fill it in "
                  f"(or ask the assistant / run /autoreply).")
-    c = json.loads(path.read_text())
+    c = json.loads(path.read_text(encoding="utf-8"))
     for field in ("post_url", "keywords", "public_reply", "dm_text"):
         if not c.get(field):
             sys.exit(f"campaign.json is missing '{field}'.")
@@ -137,19 +135,19 @@ def keyword_hits(text: str, keywords, match: str) -> bool:
 
 def load_state(path: Path) -> dict:
     if path.exists():
-        return json.loads(path.read_text())
+        return json.loads(path.read_text(encoding="utf-8"))
     return {"replied": {}, "user_campaign": []}
 
 
 def save_state(path: Path, state: dict) -> None:
     tmp = path.with_suffix(".json.tmp")
-    tmp.write_text(json.dumps(state, ensure_ascii=False, indent=1))
+    tmp.write_text(json.dumps(state, ensure_ascii=False, indent=1), encoding="utf-8")
     tmp.replace(path)
 
 
 def append_contact(path: Path, row: dict) -> None:
     new_file = not path.exists()
-    with path.open("a", newline="") as f:
+    with path.open("a", newline="", encoding="utf-8") as f:
         writer = csv.DictWriter(f, fieldnames=CONTACTS_COLUMNS)
         if new_file:
             writer.writeheader()

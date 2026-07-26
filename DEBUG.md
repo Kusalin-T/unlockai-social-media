@@ -56,21 +56,50 @@ retry. The whole repo is tiny (a few KB), so a slow download means the network, 
 
 ## Windows-specific
 
+> Windows-only notes, every snippet as a ready-to-run script, and the full list of Windows traps
+> found in testing: **[windows/README.md](windows/README.md)**.
+
 **Mixed-up shell (a PowerShell command errors, or a bash command errors)**
 → Windows has two shells and their commands differ. `Invoke-WebRequest`/`Expand-Archive` are
-**PowerShell**; `curl`/`tar` are **Git-Bash**. Detect which you're in (run `echo $PSVersionTable`
-— PowerShell prints a table, Bash errors) and use the matching column in BOOTSTRAP Step 2. Don't
-mix them.
+**PowerShell**; the `curl … | tar -xz` form is **Git-Bash / macOS**. Detect which you're in (run
+`echo $PSVersionTable` — PowerShell prints a table, Bash errors) and use the matching column in
+BOOTSTRAP Step 2. Don't mix them.
+
+**`A parameter cannot be found that matches parameter name 'fsSL'`**
+→ The student pasted the **Mac** `curl` line into **Windows PowerShell**, where `curl` is an
+*alias for `Invoke-WebRequest`* — so it fails on the flags instead of saying "command not found",
+which is why it looks so confusing. Use BOOTSTRAP Step 2 method **C**.
+
+**Which PowerShell do students have — 5.1 or 7?**
+→ Windows 11 ships **5.1** ("Windows PowerShell", blue icon). PowerShell 7 ("PowerShell", black
+icon) is a separate install and most students won't have it. Everything in this kit is written and
+tested to work on **5.1**, so nobody needs to install anything. Check with `$PSVersionTable.PSVersion`.
+
+**A folder literally named `~` appeared (e.g. `C:\Users\you\~\Downloads\…`)**
+→ PowerShell does **not** expand `~` when passing arguments to `git`, so
+`git clone … ~/Downloads/x` creates a real folder called `~`. Then `cd ~/Downloads/x` (which *does*
+expand) reports "path not found" — same machine, two different places. Use `$HOME` / `Join-Path`
+as in SETUP.md. Remove the stray folder with `Remove-Item -LiteralPath '~' -Recurse -Force` —
+`-LiteralPath` matters, or PowerShell expands the `~` again and you delete the wrong thing.
 
 **`Expand-Archive` / `Move-Item` fails ("already exists" / "in use")**
 → First close any Explorer or terminal window currently inside the folder. If the target exists,
 rename it to a timestamped backup; never delete it. Retry BOOTSTRAP Step 2 method C — it creates
 a new uniquely named temporary folder each time, so stale ZIP and extraction files cannot collide.
 
+**There is an `unlockai-social-media-master` folder *inside* `unlockai-social-media`**
+→ An older version of these instructions used `Move-Item -Force`, which moves the source *inside*
+an existing folder instead of replacing it — and reports success, so nothing looked wrong at the
+time. Rerun BOOTSTRAP Step 2 method C (it backs the folder up first), then copy any of the
+student's work across from the backup.
+
 **`cd $HOME\Downloads\unlockai-social-media` says "path not found"**
 → The download landed somewhere else, or the folder name differs. List `$HOME\Downloads` and look
 for the real folder name (an archive download may leave `unlockai-social-media-master`). `cd` into
 whatever actually exists, or re-run the Move-Item step to rename it.
+→ Check the `~` trap above — a `git clone` with `~` puts it in a folder literally named `~`.
+→ If File Explorer shows Downloads under **OneDrive**, the folder was redirected and
+`$HOME\Downloads` is a *different, new* folder. Use the absolute path the assistant printed.
 
 **Antivirus / SmartScreen warning on the installer** → this is the Windows install of Claude Code
 itself, from the official `claude.ai` script. Allow it / "More info → Run anyway". If the machine
@@ -147,7 +176,20 @@ recipient's **Requests** folder if they don't follow you.
 
 **`python: command not found` / `'python' is not recognized` (Windows)**
 → Try `py bot\run.py` instead of `python`. Still nothing? Install Python from python.org (tick
-**"Add Python to PATH"** during install), open a new terminal, retry.
+**"Add Python to PATH"** during install), then **open a new terminal** — PATH only refreshes in
+new terminals — and retry.
+
+**(Windows) `python` opens the Microsoft Store, or returns silently doing nothing**
+→ That's Windows' "App execution alias" stub, not a real Python. Use **`py`** for everything:
+`py bot\run.py`, `py --version`. To confirm, run `(Get-Command python).Source` — a path under
+`WindowsApps` means it's the stub. (It can be turned off in Settings → Apps → Advanced app
+settings → App execution aliases, but `py` is faster and needs no admin rights.)
+
+**(Windows) `UnicodeDecodeError` / `charmap codec can't decode byte …` when running the bot**
+→ An older copy of the kit. The bot used to read `campaign.json` with Windows' default encoding
+(cp1252 on Thai/Western machines) instead of UTF-8, so any Thai text crashed it on the first run.
+Update `bot/run.py` and `bot/ig_client.py` to the current version — every file read/write there now
+passes `encoding="utf-8"`. Verify with `py -m unittest discover -s bot -p "test_*.py"`.
 
 **`python3: command not found` (macOS)**
 → Check with `python3 --version`. If it is missing, install the current Python 3 from python.org,
