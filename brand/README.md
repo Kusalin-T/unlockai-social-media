@@ -1,2 +1,2 @@
-# โฟลเดอร์นี้จะมีไฟล์แบรนด์ของคุณ
-รัน /brand เพื่อสร้าง brand.md
+# Your brand file lives here
+Run `/brand` to create `brand.md`. Every other skill reads it.

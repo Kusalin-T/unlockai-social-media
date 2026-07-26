@@ -3,25 +3,25 @@ name: calendar
 description: Build a 7-day posting plan (content calendar) as a saved file — what to post, when, on which platform, with ready hooks. Use when user wants a posting schedule or weekly content plan.
 ---
 
-วางแผนโพสต์ 7 วัน แบบตัดสินใจครบจบในไฟล์เดียว
+Plan 7 days of posts, every decision made up front, all in one file. **Write hooks/topics in Thai.** Talk to the user in Thai.
 
-## ขั้นตอน
+## Steps
 
-1. อ่าน `brand/brand.md` (ถ้าไม่มี → ชวนรัน `/brand`) — ใช้แพลตฟอร์ม+ความถี่จากไฟล์แบรนด์
-2. **ถามให้ครบก่อนเริ่ม แล้วทำรวดเดียวจบ** (นี่คือหัวใจ: ตัดสินใจหน้างานให้หมด จะได้ไม่ต้องกลับมาถามรายวัน):
-   - อาทิตย์นี้มีอะไรพิเศษ (โปร? เปิดตัว? วันหยุด/เทศกาล?)
-   - โพสต์ไหวจริง ๆ กี่ชิ้น (อย่าวางแผนเกินแรง)
-   - มีรูป/วิดีโอในมืออยู่แล้วไหม
-3. สร้าง `output/calendar-<วันที่เริ่ม>.md`:
+1. Read `brand/brand.md` (if missing → invite them to run `/brand`) — use the platform + frequency from the brand file.
+2. **Ask everything up front, then produce it all at once** (this is the whole point: make every decision now so the user isn't back asking daily):
+   - Anything special this week? (promo? launch? holiday/festival?)
+   - How many posts can they realistically make (don't over-plan)?
+   - Do they already have photos/videos on hand?
+3. Create `output/calendar-<start-date>.md`:
 
 ```markdown
-# แผนโพสต์ <วันที่>–<วันที่>
+# แผนโพสต์ <date>–<date>
 | วัน | เวลา | แพลตฟอร์ม | ฟอร์แมต | Hook/หัวข้อ | CTA | ต้องเตรียม |
 |---|---|---|---|---|---|---|
 ```
 
-   - เวลาโพสต์: ช่วงที่คนไทยเล่นจริง (เที่ยง 11:30–13:00 / ค่ำ 19:00–21:30) เว้นแต่แบรนด์รู้เวลาของตัวเอง
-   - คละประเภทตามสัดส่วนง่าย ๆ: ให้คุณค่า ~60% / ขาย ~30% / เล่นกับกระแสหรือเบื้องหลัง ~10%
-   - คอลัมน์ "ต้องเตรียม" ต้องละเอียดพอที่จะทำตามได้เลย (เช่น "ถ่ายรูปสินค้า 3 มุมกับพื้นขาว")
-4. สรุปท้ายไฟล์: รายการของที่ต้องถ่าย/เตรียมทั้งอาทิตย์ รวมเป็น checklist เดียว (ถ่ายทีเดียวจบ)
-5. เสนอ: อยากได้แคปชั่นของวันไหนเลย ใช้ `/caption` ต่อได้ทันที
+   - Posting times: when Thai users are actually online (midday 11:30–13:00 / evening 19:00–21:30) unless the brand knows its own timing.
+   - Simple content mix: value ~60% / sell ~30% / trend or behind-the-scenes ~10%.
+   - The "ต้องเตรียม" (to-prepare) column must be detailed enough to act on directly (e.g. "shoot the product from 3 angles on a white background").
+4. End of file: roll every shoot/prep item for the week into a single checklist (batch it all in one session).
+5. Offer: want the caption for any given day? Continue straight into `/caption`.

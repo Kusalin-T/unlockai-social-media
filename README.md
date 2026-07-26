@@ -1,49 +1,52 @@
 # UnlockAI: Social Media 🔓
 
-Starter kit สำหรับใช้ AI ทำงาน social media จริง — จากเวิร์กช็อป **UnlockAI: Social Media**
+Starter kit for doing real social media work with AI — from the **UnlockAI: Social Media** workshop.
+ชุดเครื่องมือ AI สำหรับงาน social media จริง (ตัวช่วยตอบเป็นภาษาไทยให้เสมอ)
 
-## What's inside (ข้างในมีอะไร)
+## What's inside
 
-| Skill | พิมพ์ | ทำอะไร |
+| Skill | Type | What it does |
 |---|---|---|
-| Brand Setup | `/brand` | AI สัมภาษณ์คุณ แล้วสร้างไฟล์แบรนด์ของคุณ — **ทำอันนี้ก่อน** |
-| Caption Writer | `/caption` | เขียนแคปชั่นตามแบรนด์ 3 แบบ + แฮชแท็ก |
-| Content Ideas | `/ideas` | ไอเดียคอนเทนต์/hook 10 อัน จากหัวข้อเดียว |
-| Content Calendar | `/calendar` | แผนโพสต์ 7 วัน เป็นไฟล์เก็บไว้ใช้ต่อ |
-| Comment-to-DM Campaign | `/autoreply` | ออกแบบแคมเปญ "คอมเมนต์คำนี้ รับของทาง DM" — CTA, ข้อความตอบใต้คอมเมนต์, ข้อความ DM พร้อมติดตั้ง |
+| Brand Setup | `/brand` | AI interviews you and builds your brand file — **do this first** |
+| Caption Writer | `/caption` | 3 on-brand caption options + hashtags (in Thai) |
+| Content Ideas | `/ideas` | 10 content ideas/hooks from a single topic |
+| Content Calendar | `/calendar` | A 7-day posting plan saved as a file |
+| Comment-to-DM Campaign | `/autoreply` | Design a "comment KEYWORD → get it by DM" campaign — CTA, public reply, DM copy, ready to install |
 
-## Quick start (เริ่มยังไง) — 2 ขั้น
+> Everything the AI writes for you (captions, DMs, campaigns) comes out in **Thai** — the repo is in English, the output is Thai. (งานที่ได้เป็นภาษาไทย)
 
-**ขั้น 1 — ติดตั้ง Claude Code ครั้งเดียว** (Mac/Windows) → ทำตาม [SETUP.md](SETUP.md) (~10 นาที)
-พอเปิด `claude` ขึ้นมาได้แล้ว ไปขั้น 2 เลย
+## Quick start — 2 steps
 
-**ขั้น 2 — วางคำสั่งเดียวนี้** ลงใน Claude แล้วกด Enter — AI จะโหลดชุดเครื่องมือลงเครื่องให้เอง (ไม่ต้องดาวน์โหลดเอง):
+**Step 1 — install Claude Code once** (Mac/Windows) → follow [SETUP.md](SETUP.md) (~10 min).
+Once `claude` opens, go to step 2.
+
+**Step 2 — paste this one prompt** into Claude and press Enter. The AI downloads the toolkit itself (no manual download):
 
 ```
-ตั้งค่าเวิร์กช็อป UnlockAI: Social Media ให้หน่อย — อ่านและทำตามขั้นตอนใน https://raw.githubusercontent.com/Kusalin-T/unlockai-social-media/master/BOOTSTRAP.md ให้ครบ ถ้าติดปัญหาให้ดู DEBUG.md ใน repo เดียวกัน
+Set up my UnlockAI: Social Media workspace. Read and follow every step in https://raw.githubusercontent.com/Kusalin-T/unlockai-social-media/master/BOOTSTRAP.md — if anything breaks, read DEBUG.md in the same repo. Reply to me in Thai.
 ```
 
-AI จะโหลด repo, ตรวจไฟล์ให้ครบ, แล้วบอกคุณให้เปิด `claude` ใหม่ในโฟลเดอร์นี้ จากนั้นพิมพ์คำสั่งแรก:
+The AI downloads the repo, verifies the files, then tells you to reopen `claude` inside the folder. Then type your first command:
 
 ```
 /brand
 ```
-ตอบคำถาม AI ให้ครบ — มันจะสร้างไฟล์แบรนด์ของคุณ แล้วทุก skill ที่เหลือจะเขียนงานในเสียงแบรนด์คุณอัตโนมัติ
+Answer the interview — it builds your brand file, and every other skill then writes in your brand voice automatically.
 
-แล้วลองต่อเลย — เป้าหมายวันนี้คือ `/autoreply`:
+Then keep going — today's goal is `/autoreply`:
 ```
-/caption โพสต์เปิดตัวสินค้าใหม่อาทิตย์หน้า
-/ideas คอนเทนต์ช่วงสงกรานต์
+/caption a product launch next week
+/ideas content for Songkran
 /calendar
 /autoreply
 ```
 
-> ถ้าอยากโหลดเองแบบไม่ผ่าน AI ก็ได้ — ดูวิธี manual ท้าย [SETUP.md](SETUP.md)
+> Prefer to download it yourself instead of via the AI? See the manual steps at the bottom of [SETUP.md](SETUP.md).
 
-## Folders (โฟลเดอร์)
+## Folders
 
-- `brand/` — ไฟล์แบรนด์ของคุณ (สร้างโดย `/brand`)
-- `output/` — งานที่ AI เขียนให้ (แคปชั่น แผนโพสต์ ตาราง auto-reply)
-- `workshop/` — แบบฝึกหัดตามคลาส
+- `brand/` — your brand file (created by `/brand`)
+- `output/` — work the AI writes for you (captions, posting plans, comment-to-DM campaigns)
+- `workshop/` — the in-class exercises
 
-ติดปัญหา → DM [@butabuilds](https://instagram.com/butabuilds)
+Stuck → DM [@butabuilds](https://instagram.com/butabuilds)

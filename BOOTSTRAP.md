@@ -23,7 +23,7 @@ Default branch: `master`
   - Windows PowerShell: `$HOME\Downloads\unlockai-social-media`
 - If a folder already exists there from a previous try, delete it first so the download is clean.
 
-Tell the student in Thai: "กำลังโหลดชุดเครื่องมือลงเครื่องให้นะครับ รอแป๊บ ⏳"
+Tell the student (in Thai) that you're downloading the toolkit onto their computer — one moment. ⏳
 
 ## Step 2 — Download the repo into that folder
 
@@ -84,9 +84,10 @@ cd $HOME\Downloads\unlockai-social-media
 claude
 ```
 
-Then tell them: พอ Claude เปิดขึ้นมาใหม่ในโฟลเดอร์นี้ ให้พิมพ์ **`/brand`** เป็นคำสั่งแรก —
-AI จะสัมภาษณ์แล้วสร้างไฟล์แบรนด์ให้ จากนั้นทุก skill จะเขียนงานในเสียงแบรนด์คุณอัตโนมัติ
-เป้าหมายวันนี้คือ **`/autoreply`** = แคมเปญ "คอมเมนต์คำนี้ รับของทาง DM".
+Then tell them (in Thai): once Claude reopens inside this folder, type **`/brand`** as the first
+command — the AI interviews them and builds their brand file, and every skill then writes in
+their brand voice automatically. Today's goal is **`/autoreply`** = a "comment KEYWORD → get it by
+DM" campaign.
 
 ## Step 5 — Confirm success
 
@@ -100,4 +101,4 @@ or `/help`). If they don't appear, go to DEBUG.md → "Skills don't show after r
   and is already done if you're reading this. Everything from here you do for them.
 - On a fresh install you may see permission prompts for running commands or fetching URLs —
   that's normal; ask the student to approve them once.
-- Keep each message short. One action at a time. Celebrate small wins ("โหลดเสร็จแล้ว ✅").
+- Keep each message short. One action at a time. Celebrate small wins ("Downloaded ✅") — in Thai.

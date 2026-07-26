@@ -65,8 +65,8 @@ then `claude` again. Type `/` to see the 5 commands.
 → Run `/brand` to the end first — it creates `brand/brand.md`, which every other skill reads.
 Then try `/caption`, `/ideas`, `/calendar`, `/autoreply` again.
 
-**Wrong language** → tell the assistant "ตอบภาษาไทยนะ" — it defaults to Thai but will match
-whatever language you use.
+**Assistant is replying in the wrong language** → it should default to Thai; just tell it
+"ตอบเป็นภาษาไทย" (reply in Thai) and it will switch.
 
 ---
 

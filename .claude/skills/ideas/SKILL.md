@@ -3,22 +3,22 @@ name: ideas
 description: Generate 10 content ideas/hooks from one topic, tagged by format (reel/carousel/story/live). Use when user needs post ideas, content inspiration, or doesn't know what to post.
 ---
 
-ปั้นไอเดียคอนเทนต์ 10 อัน จากหัวข้อเดียว
+Spin up 10 content ideas from a single topic. **Write the hooks in Thai** (ready to post). Talk to the user in Thai.
 
-## ขั้นตอน
+## Steps
 
-1. อ่าน `brand/brand.md` (ถ้าไม่มี → ชวนรัน `/brand`)
-2. ถ้าผู้ใช้ไม่ได้ให้หัวข้อ → ถามว่าช่วงนี้อยากดันอะไร (สินค้า? เทศกาล? ปัญหาลูกค้า?)
-3. สร้างตาราง 10 ไอเดีย:
+1. Read `brand/brand.md` (if missing → invite them to run `/brand`).
+2. If the user gave no topic → ask what they want to push right now (a product? a festival? a customer pain point?).
+3. Build a table of 10 ideas:
 
-| # | Hook (บรรทัดแรกที่ใช้ได้เลย) | มุมเรื่อง | ฟอร์แมต | ความยาก |
+| # | Hook (ready-to-use first line, in Thai) | Angle | Format | Difficulty |
 |---|---|---|---|---|
 
-   - **Hook ต้องพร้อมใช้** ไม่ใช่แค่ชื่อหัวข้อ — เขียนเป็นประโยคที่หยุดนิ้วได้จริง
-   - คละมุม: สอน (how-to), เบื้องหลัง, รีวิว/เคสลูกค้า, ขัดความเชื่อ, เทรนด์/เกาะกระแส, ขายตรง
-   - ฟอร์แมต: Reel / Carousel / Story / Live / โพสต์รูปเดียว — เลือกให้เหมาะกับมุมนั้นจริง ๆ
-   - ความยาก: 🟢 ถ่ายมือถือจบ / 🟡 ต้องเตรียมของ / 🔴 ต้องตัดต่อจริงจัง
-4. ชี้ 3 อันที่คุ้มสุดสำหรับแบรนด์นี้ พร้อมเหตุผลสั้น ๆ
-5. ผู้ใช้เลือกไอเดียไหน → ต่อยอดให้เลย (สคริปต์สั้น/โครง carousel/แคปชั่นด้วย `/caption`)
+   - **Hooks must be ready to use** — not just a topic name; write a real scroll-stopping sentence.
+   - Mix angles: how-to, behind-the-scenes, review/customer-case, myth-buster, trend/newsjack, direct-sell.
+   - Format: Reel / Carousel / Story / Live / single-image post — pick what truly fits that angle.
+   - Difficulty: 🟢 shoot on a phone / 🟡 needs props/prep / 🔴 needs real editing.
+4. Point out the 3 highest-value ones for this brand, with a short reason each.
+5. Whichever idea the user picks → build it out (short script / carousel outline / caption via `/caption`).
 
-ถ้าผู้ใช้ขอเก็บไว้ → เซฟลง `output/ideas-<หัวข้อ>.md`
+If the user wants to keep them → save to `output/ideas-<topic>.md`.

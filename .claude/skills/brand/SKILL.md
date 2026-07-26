@@ -3,33 +3,34 @@ name: brand
 description: Interview the user about their business/brand and create brand/brand.md — the brand voice file every other skill uses. Use when user wants to set up, update, or fix their brand profile.
 ---
 
-สัมภาษณ์ผู้ใช้เพื่อสร้างไฟล์แบรนด์ `brand/brand.md`
+Interview the user to create the brand file `brand/brand.md`.
+**Talk to the user in Thai. Write `brand.md` itself in Thai** (it feeds Thai content generation).
 
-## ขั้นตอน
+## Steps
 
-1. ถามทีละข้อ (อย่าถามรวดเดียว 10 ข้อ — คุยเหมือนที่ปรึกษา) ครอบคลุม:
-   - ธุรกิจ/เพจทำอะไร ขายอะไร
-   - ลูกค้า/คนดูคือใคร (อายุ, สนใจอะไร, ปัญหาอะไร)
-   - จุดขายที่ต่างจากคู่แข่ง
-   - เสียงแบรนด์: เป็นกันเอง/ทางการ? ใช้ "ครับ/ค่ะ/จ้า"? เล่นมุกได้ไหม? ใช้อีโมจิเยอะแค่ไหน?
-   - แพลตฟอร์มหลัก (IG / Facebook / TikTok) + ความถี่โพสต์ที่ทำไหว
-   - สิ่งที่ห้ามพูด/ห้ามทำ (คำต้องห้าม, โปรโมชั่นที่เลิกแล้ว, ดราม่าที่ต้องเลี่ยง)
-   - ตัวอย่างโพสต์ที่ผู้ใช้ชอบ (ถ้ามี ให้แปะมาเลย)
-2. ระหว่างถาม ถ้าคำตอบกว้างไป ให้ถามเจาะสั้น ๆ 1 ครั้งพอ อย่ายื้อ
-3. เขียนสรุปเป็น `brand/brand.md` โครงนี้:
+1. Ask **one question at a time** (don't dump all 10 at once — act like a consultant). Cover:
+   - What the business/page does and sells
+   - Who the customer/audience is (age, interests, pain points)
+   - What makes them different from competitors
+   - Brand voice: casual or formal? Which Thai particles (ครับ/ค่ะ/จ้า)? Jokes OK? How much emoji?
+   - Primary platform (IG / Facebook / TikTok) + a posting frequency they can realistically keep
+   - What NOT to say/do (forbidden words, retired promos, drama to avoid)
+   - Example posts the user likes (ask them to paste any)
+2. While asking, if an answer is too broad, ask ONE short follow-up — then move on, don't stall.
+3. Write the summary to `brand/brand.md` (in Thai) using this structure:
 
 ```markdown
-# Brand: <ชื่อ>
-## ธุรกิจ
-## ลูกค้า
-## จุดขาย
-## เสียงแบรนด์ (โทน, สรรพนาม, อีโมจิ, ตัวอย่างประโยค)
-## แพลตฟอร์ม + ความถี่
-## ข้อห้าม
-## ตัวอย่างโพสต์อ้างอิง
+# Brand: <name>
+## ธุรกิจ (Business)
+## ลูกค้า (Audience)
+## จุดขาย (Differentiators)
+## เสียงแบรนด์ (Voice — tone, pronouns, emoji, sample sentences)
+## แพลตฟอร์ม + ความถี่ (Platform + frequency)
+## ข้อห้าม (Never do / never say)
+## ตัวอย่างโพสต์อ้างอิง (Reference posts)
 ```
 
-4. แสดงไฟล์ให้ดู ถามว่าแก้อะไรไหม แก้จนผู้ใช้พอใจ
-5. ปิดท้าย: บอกว่า skill อื่นทุกตัวจะใช้ไฟล์นี้อัตโนมัติ ลอง `/caption` ได้เลย
+4. Show the file, ask what to change, revise until the user is happy.
+5. Close by telling them every other skill uses this file automatically — suggest trying `/caption`.
 
-ถ้ามี `brand/brand.md` อยู่แล้ว → อ่านแล้วถามว่าจะอัปเดตส่วนไหน
+If `brand/brand.md` already exists → read it and ask which section to update.

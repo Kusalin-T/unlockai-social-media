@@ -1,1 +1,2 @@
-# งานที่ AI สร้างให้จะมาอยู่ที่นี่
+# The AI's finished work lands here
+Captions, posting calendars, and comment-to-DM campaigns get saved into this folder.

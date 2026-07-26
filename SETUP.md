@@ -1,15 +1,15 @@
-# Setup — ติดตั้ง Claude CLI
+# Setup — install Claude CLI
 
-ทำครั้งเดียว ใช้ได้ตลอด ใช้เวลา ~10 นาที
+One time, lasts forever. Takes ~10 minutes.
 
-## 1. เปิด Terminal
+## 1. Open a terminal
 
-- **Mac**: กด `⌘ + Space` → พิมพ์ `Terminal` → Enter
-- **Windows**: กดปุ่ม Windows → พิมพ์ `PowerShell` → Enter
+- **Mac**: press `⌘ + Space` → type `Terminal` → Enter
+- **Windows**: press the Windows key → type `PowerShell` → Enter
 
-## 2. ติดตั้ง Claude CLI
+## 2. Install Claude CLI
 
-คัดลอกบรรทัดนี้ วางใน Terminal แล้วกด Enter:
+Copy this line, paste it into the terminal, press Enter:
 
 **Mac:**
 ```
@@ -21,57 +21,59 @@ curl -fsSL https://claude.ai/install.sh | bash
 irm https://claude.ai/install.ps1 | iex
 ```
 
-รอจนขึ้นว่าติดตั้งสำเร็จ แล้ว**ปิด Terminal เปิดใหม่ 1 ครั้ง**
+Wait for "installed successfully", then **close the terminal and open a new one once**.
 
-## 3. เปิด Claude แล้วล็อกอิน
+## 3. Open Claude and log in
 
-พิมพ์:
+Type:
 ```
 claude
 ```
-- ครั้งแรกจะให้ล็อกอิน → ทำตามหน้าจอ (ใช้บัญชี Claude ของคุณ)
-- ถามว่า trust folder นี้ไหม → ตอบ **Yes**
-- เห็นหน้าจอ Claude Code = สำเร็จ ✅
+- First time it asks you to log in → follow the screen (use your Claude account)
+- Asks to trust this folder → answer **Yes**
+- You see the Claude Code screen = success ✅
 
-## 4. ให้ AI โหลดชุดเครื่องมือให้ (วางคำสั่งเดียว)
+## 4. Let the AI download the toolkit (paste one prompt)
 
-วางข้อความนี้ลงใน Claude แล้วกด Enter — ไม่ต้องดาวน์โหลดอะไรเอง:
+Paste this into Claude and press Enter — you don't download anything yourself:
 
 ```
-ตั้งค่าเวิร์กช็อป UnlockAI: Social Media ให้หน่อย — อ่านและทำตามขั้นตอนใน https://raw.githubusercontent.com/Kusalin-T/unlockai-social-media/master/BOOTSTRAP.md ให้ครบ ถ้าติดปัญหาให้ดู DEBUG.md ใน repo เดียวกัน
+Set up my UnlockAI: Social Media workspace. Read and follow every step in https://raw.githubusercontent.com/Kusalin-T/unlockai-social-media/master/BOOTSTRAP.md — if anything breaks, read DEBUG.md in the same repo. Reply to me in Thai.
 ```
 
-- ถ้ามันขออนุญาตรันคำสั่ง / เข้าเน็ต → กด **อนุญาต (Yes)**
-- AI จะโหลด repo ลงโฟลเดอร์ `Downloads/unlockai-social-media` แล้วตรวจไฟล์ให้ครบ
-- เสร็จแล้วมันจะบอกให้คุณ **เปิด `claude` ใหม่ในโฟลเดอร์นั้น** — ทำตามที่มันบอก แล้วพิมพ์ `/brand`
+- If it asks permission to run a command / access the internet → click **Allow (Yes)**
+- The AI downloads the repo into `Downloads/unlockai-social-media` and verifies the files
+- When it's done it tells you to **reopen `claude` inside that folder** — do what it says, then type `/brand`
 
-ถ้า AI ตอบและโหลดครบ = พร้อมเรียน 🎉 กลับไปที่ [README.md](README.md) แล้วเริ่ม `/brand`
+If the AI replies and the download is complete = you're ready 🎉 Go back to [README.md](README.md) and start with `/brand`.
 
 ---
 
-## (ทางเลือก) โหลดเองแบบ manual — ถ้าไม่อยากผ่าน AI
+## (Optional) Download it yourself — if you'd rather not go through the AI
 
-**มี git อยู่แล้ว:**
+**If you already have git:**
 ```
 git clone https://github.com/Kusalin-T/unlockai-social-media.git ~/Downloads/unlockai-social-media
 cd ~/Downloads/unlockai-social-media
 claude
 ```
-**ไม่มี git (Mac):**
+**No git (Mac):**
 ```
 curl -fsSL https://codeload.github.com/Kusalin-T/unlockai-social-media/tar.gz/refs/heads/master | tar -xz -C ~/Downloads
 mv ~/Downloads/unlockai-social-media-master ~/Downloads/unlockai-social-media
 cd ~/Downloads/unlockai-social-media && claude
 ```
-แล้วพิมพ์ `/brand`
+Then type `/brand`.
 
 ---
 
-## ติดปัญหาบ่อย ๆ
+## Common problems
 
-| อาการ | ทางแก้ |
+| Symptom | Fix |
 |---|---|
-| `command not found: claude` | ปิด Terminal เปิดใหม่ แล้วลองอีกครั้ง |
-| Windows ฟ้อง execution policy | เปิด PowerShell แบบ "Run as Administrator" แล้วรันคำสั่งติดตั้งใหม่ |
-| ล็อกอินไม่ผ่าน | ลองเปิดลิงก์ล็อกอินใน Chrome แทน browser เดิม |
-| ช้า/ค้าง | เช็คเน็ต แล้วพิมพ์ `/quit` เปิด `claude` ใหม่ |
+| `command not found: claude` | Close the terminal, open a new one, try again |
+| Windows complains about execution policy | Open PowerShell as "Run as Administrator", run the install line again |
+| Login fails | Open the login link in Chrome instead of your default browser |
+| Slow / stuck | Check your internet, type `/quit`, then reopen `claude` |
+
+More detail — and the fixes the AI applies itself — are in [DEBUG.md](DEBUG.md).
