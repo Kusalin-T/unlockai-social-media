@@ -73,7 +73,7 @@ if [ -e "$target_folder" ]; then
 fi
 bootstrap_dir=$(mktemp -d "${TMPDIR:-/tmp}/unlockai-bootstrap.XXXXXX")
 mkdir -p "$target_folder"
-curl -fsSL https://codeload.github.com/Kusalin-T/unlockai-social-media/tar.gz/refs/heads/master -o "$bootstrap_dir/unlockai.tgz"
+curl -fsSL -H "Cache-Control: no-cache" https://codeload.github.com/Kusalin-T/unlockai-social-media/tar.gz/refs/heads/master -o "$bootstrap_dir/unlockai.tgz"
 tar -xzf "$bootstrap_dir/unlockai.tgz" -C "$target_folder" --strip-components=1
 cd "$target_folder" && claude
 ```

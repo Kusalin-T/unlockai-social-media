@@ -21,6 +21,7 @@ class SetupDocumentationSafetyTest(unittest.TestCase):
 
         self.assertIn('mktemp -d "${TMPDIR:-/tmp}/unlockai-bootstrap.XXXXXX"', bootstrap)
         self.assertIn("[guid]::NewGuid()", bootstrap)
+        self.assertGreaterEqual(bootstrap.count("Cache-Control"), 2)
         self.assertNotIn("/tmp/unlockai.tgz", bootstrap)
         self.assertNotIn('$env:TEMP\\unlockai.zip', bootstrap)
 

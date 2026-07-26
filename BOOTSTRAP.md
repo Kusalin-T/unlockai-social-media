@@ -70,7 +70,7 @@ git clone https://github.com/Kusalin-T/unlockai-social-media.git "$HOME\Download
 target_folder="$HOME/Downloads/unlockai-social-media"
 bootstrap_dir=$(mktemp -d "${TMPDIR:-/tmp}/unlockai-bootstrap.XXXXXX")
 mkdir -p "$target_folder"
-curl -fsSL https://codeload.github.com/Kusalin-T/unlockai-social-media/tar.gz/refs/heads/master -o "$bootstrap_dir/unlockai.tgz"
+curl -fsSL -H "Cache-Control: no-cache" https://codeload.github.com/Kusalin-T/unlockai-social-media/tar.gz/refs/heads/master -o "$bootstrap_dir/unlockai.tgz"
 tar -xzf "$bootstrap_dir/unlockai.tgz" -C "$target_folder" --strip-components=1
 ```
 
@@ -81,7 +81,7 @@ $bootstrapTemp = Join-Path $env:TEMP ("unlockai-bootstrap-" + [guid]::NewGuid().
 $archivePath = Join-Path $bootstrapTemp "unlockai.zip"
 $extractPath = Join-Path $bootstrapTemp "extract"
 New-Item -ItemType Directory -Force -Path $extractPath | Out-Null
-Invoke-WebRequest -Uri "https://codeload.github.com/Kusalin-T/unlockai-social-media/zip/refs/heads/master" -OutFile $archivePath
+Invoke-WebRequest -Uri "https://codeload.github.com/Kusalin-T/unlockai-social-media/zip/refs/heads/master" -Headers @{"Cache-Control" = "no-cache"} -OutFile $archivePath
 Expand-Archive -Path $archivePath -DestinationPath $extractPath
 Move-Item (Join-Path $extractPath "unlockai-social-media-master") $targetFolder
 ```
