@@ -2,8 +2,9 @@
 
 ## ✅ Block 1 — เครื่องพร้อม
 - [ ] เปิด Terminal ได้
-- [ ] ติดตั้ง Claude CLI สำเร็จ (ดู SETUP.md)
-- [ ] `cd` เข้าโฟลเดอร์นี้ + `claude` ขึ้นหน้าจอ
+- [ ] ติดตั้ง Claude CLI สำเร็จ + เปิด `claude` ล็อกอินได้ (ดู SETUP.md)
+- [ ] วาง **คำสั่ง bootstrap** (ใน SETUP.md ข้อ 4) → AI โหลด repo ลงเครื่องให้
+- [ ] เปิด `claude` ใหม่ในโฟลเดอร์ `Downloads/unlockai-social-media` แล้วพิมพ์ `/` เห็นครบ 5 คำสั่ง
 - [ ] ทัก AI 1 ประโยค แล้วได้คำตอบ
 
 ## ✅ Block 2 — แบรนด์ของคุณ

@@ -23,24 +23,47 @@ irm https://claude.ai/install.ps1 | iex
 
 รอจนขึ้นว่าติดตั้งสำเร็จ แล้ว**ปิด Terminal เปิดใหม่ 1 ครั้ง**
 
-## 3. เข้าโฟลเดอร์นี้ แล้วเริ่ม
-
-```
-cd ~/Downloads/unlockai-social-media
-claude
-```
-
-- ครั้งแรกจะให้ล็อกอิน → ทำตามหน้าจอ (ใช้บัญชี Claude ของคุณ)
-- ถามว่า trust folder นี้ไหม → ตอบ **Yes**
-- เห็นหน้าจอ Claude Code = สำเร็จ ✅ ("มันมาอยู่ในคอมเราแล้ว")
-
-## 4. ทดสอบ
+## 3. เปิด Claude แล้วล็อกอิน
 
 พิมพ์:
 ```
-สวัสดี แนะนำตัวหน่อย
+claude
 ```
-ถ้า AI ตอบ = พร้อมเรียน 🎉 กลับไปที่ [README.md](README.md) แล้วเริ่ม `/brand`
+- ครั้งแรกจะให้ล็อกอิน → ทำตามหน้าจอ (ใช้บัญชี Claude ของคุณ)
+- ถามว่า trust folder นี้ไหม → ตอบ **Yes**
+- เห็นหน้าจอ Claude Code = สำเร็จ ✅
+
+## 4. ให้ AI โหลดชุดเครื่องมือให้ (วางคำสั่งเดียว)
+
+วางข้อความนี้ลงใน Claude แล้วกด Enter — ไม่ต้องดาวน์โหลดอะไรเอง:
+
+```
+ตั้งค่าเวิร์กช็อป UnlockAI: Social Media ให้หน่อย — อ่านและทำตามขั้นตอนใน https://raw.githubusercontent.com/Kusalin-T/unlockai-social-media/master/BOOTSTRAP.md ให้ครบ ถ้าติดปัญหาให้ดู DEBUG.md ใน repo เดียวกัน
+```
+
+- ถ้ามันขออนุญาตรันคำสั่ง / เข้าเน็ต → กด **อนุญาต (Yes)**
+- AI จะโหลด repo ลงโฟลเดอร์ `Downloads/unlockai-social-media` แล้วตรวจไฟล์ให้ครบ
+- เสร็จแล้วมันจะบอกให้คุณ **เปิด `claude` ใหม่ในโฟลเดอร์นั้น** — ทำตามที่มันบอก แล้วพิมพ์ `/brand`
+
+ถ้า AI ตอบและโหลดครบ = พร้อมเรียน 🎉 กลับไปที่ [README.md](README.md) แล้วเริ่ม `/brand`
+
+---
+
+## (ทางเลือก) โหลดเองแบบ manual — ถ้าไม่อยากผ่าน AI
+
+**มี git อยู่แล้ว:**
+```
+git clone https://github.com/Kusalin-T/unlockai-social-media.git ~/Downloads/unlockai-social-media
+cd ~/Downloads/unlockai-social-media
+claude
+```
+**ไม่มี git (Mac):**
+```
+curl -fsSL https://codeload.github.com/Kusalin-T/unlockai-social-media/tar.gz/refs/heads/master | tar -xz -C ~/Downloads
+mv ~/Downloads/unlockai-social-media-master ~/Downloads/unlockai-social-media
+cd ~/Downloads/unlockai-social-media && claude
+```
+แล้วพิมพ์ `/brand`
 
 ---
 
