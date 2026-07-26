@@ -42,7 +42,9 @@ Only once all four pass, continue.
 - Target folder = the student's **Downloads** folder, subfolder `unlockai-social-media`:
   - macOS / Linux / Git-Bash: `~/Downloads/unlockai-social-media`
   - Windows PowerShell: `$HOME\Downloads\unlockai-social-media`
-- If a folder already exists there from a previous try, delete it first so the download is clean.
+- **Never delete an existing workspace.** If the target already exists, rename it beside the
+  target to `unlockai-social-media-backup-YYYYMMDD-HHMMSS`, tell the student where the backup is,
+  and only then continue with a clean target folder.
 
 Tell the student (in Thai) that you're downloading the toolkit onto their computer — one moment. ⏳
 
@@ -52,23 +54,36 @@ Prefer **git** if it's installed; otherwise fall back to downloading the archive
 branch that matches the shell you actually have:
 
 **A. If `git` is available (best):**
+
+macOS / Linux / Git-Bash:
 ```
-git clone https://github.com/Kusalin-T/unlockai-social-media.git <target folder>
+git clone https://github.com/Kusalin-T/unlockai-social-media.git "$HOME/Downloads/unlockai-social-media"
+```
+
+Windows PowerShell:
+```
+git clone https://github.com/Kusalin-T/unlockai-social-media.git "$HOME\Downloads\unlockai-social-media"
 ```
 
 **B. No git — macOS / Linux / Git-Bash (curl + tar):**
 ```
-mkdir -p <target folder>
-curl -fsSL https://codeload.github.com/Kusalin-T/unlockai-social-media/tar.gz/refs/heads/master -o /tmp/unlockai.tgz
-tar -xzf /tmp/unlockai.tgz -C <target folder> --strip-components=1
+target_folder="$HOME/Downloads/unlockai-social-media"
+bootstrap_dir=$(mktemp -d "${TMPDIR:-/tmp}/unlockai-bootstrap.XXXXXX")
+mkdir -p "$target_folder"
+curl -fsSL https://codeload.github.com/Kusalin-T/unlockai-social-media/tar.gz/refs/heads/master -o "$bootstrap_dir/unlockai.tgz"
+tar -xzf "$bootstrap_dir/unlockai.tgz" -C "$target_folder" --strip-components=1
 ```
 
 **C. No git — Windows PowerShell (Invoke-WebRequest + Expand-Archive):**
 ```
-New-Item -ItemType Directory -Force -Path "$HOME\Downloads" | Out-Null
-Invoke-WebRequest -Uri "https://codeload.github.com/Kusalin-T/unlockai-social-media/zip/refs/heads/master" -OutFile "$env:TEMP\unlockai.zip"
-Expand-Archive -Path "$env:TEMP\unlockai.zip" -DestinationPath "$env:TEMP\unlockai-x" -Force
-Move-Item "$env:TEMP\unlockai-x\unlockai-social-media-master" "$HOME\Downloads\unlockai-social-media" -Force
+$targetFolder = Join-Path $HOME "Downloads\unlockai-social-media"
+$bootstrapTemp = Join-Path $env:TEMP ("unlockai-bootstrap-" + [guid]::NewGuid().ToString("N"))
+$archivePath = Join-Path $bootstrapTemp "unlockai.zip"
+$extractPath = Join-Path $bootstrapTemp "extract"
+New-Item -ItemType Directory -Force -Path $extractPath | Out-Null
+Invoke-WebRequest -Uri "https://codeload.github.com/Kusalin-T/unlockai-social-media/zip/refs/heads/master" -OutFile $archivePath
+Expand-Archive -Path $archivePath -DestinationPath $extractPath
+Move-Item (Join-Path $extractPath "unlockai-social-media-master") $targetFolder
 ```
 
 If a command asks for a GitHub username/password, the repo is public — you do **not** need to log
@@ -84,8 +99,9 @@ Confirm these exist inside the target folder:
 - `.claude/skills/autoreply/SKILL.md`
 - `README.md`, `CLAUDE.md`
 
-If any are missing, delete the folder and retry Step 2 with the archive method. Do **not**
-proceed until all 5 skills and both markdown files are present.
+If any are missing, rename the partial folder to a timestamped backup and retry Step 2 with the
+archive method. Do **not** delete it, and do **not** proceed until all 5 skills and both markdown
+files are present.
 
 ## Step 4 — Hand off (the student must relaunch inside the folder)
 

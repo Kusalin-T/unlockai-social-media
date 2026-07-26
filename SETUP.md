@@ -63,11 +63,19 @@ git clone https://github.com/Kusalin-T/unlockai-social-media.git ~/Downloads/unl
 cd ~/Downloads/unlockai-social-media
 claude
 ```
+If that folder already exists, rename it first; never delete an existing workshop folder.
+
 **No git (Mac):**
 ```
-curl -fsSL https://codeload.github.com/Kusalin-T/unlockai-social-media/tar.gz/refs/heads/master | tar -xz -C ~/Downloads
-mv ~/Downloads/unlockai-social-media-master ~/Downloads/unlockai-social-media
-cd ~/Downloads/unlockai-social-media && claude
+target_folder="$HOME/Downloads/unlockai-social-media"
+if [ -e "$target_folder" ]; then
+  mv "$target_folder" "${target_folder}-backup-$(date +%Y%m%d-%H%M%S)"
+fi
+bootstrap_dir=$(mktemp -d "${TMPDIR:-/tmp}/unlockai-bootstrap.XXXXXX")
+mkdir -p "$target_folder"
+curl -fsSL https://codeload.github.com/Kusalin-T/unlockai-social-media/tar.gz/refs/heads/master -o "$bootstrap_dir/unlockai.tgz"
+tar -xzf "$bootstrap_dir/unlockai.tgz" -C "$target_folder" --strip-components=1
+cd "$target_folder" && claude
 ```
 Then type `/` to confirm the five commands appear. In class, wait for the next gate; on your own,
 start with `/brand`.

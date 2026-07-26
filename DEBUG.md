@@ -45,8 +45,9 @@ credentials that are getting in the way. Use the archive method (BOOTSTRAP Step 
 needs no account at all.
 
 **Download seems to work but the folder is empty / partial**
-→ Delete the `unlockai-social-media` folder in Downloads and retry Step 2 with the archive
-method. Confirm the 5 skill files exist (BOOTSTRAP Step 3) before moving on.
+→ Never delete an existing workspace. Rename the partial `unlockai-social-media` folder beside
+it to `unlockai-social-media-backup-YYYYMMDD-HHMMSS`, then retry Step 2 with the archive method.
+Confirm the 5 skill files exist (BOOTSTRAP Step 3) before moving on.
 
 **No internet / very slow** → check WiFi first (the room's WiFi + password are on screen), then
 retry. The whole repo is tiny (a few KB), so a slow download means the network, not the file.
@@ -62,8 +63,9 @@ retry. The whole repo is tiny (a few KB), so a slow download means the network, 
 mix them.
 
 **`Expand-Archive` / `Move-Item` fails ("already exists" / "in use")**
-→ A leftover folder from a previous try. Delete `$HOME\Downloads\unlockai-social-media` and the
-temp files (`$env:TEMP\unlockai.zip`, `$env:TEMP\unlockai-x`), then retry Step 2 method C.
+→ First close any Explorer or terminal window currently inside the folder. If the target exists,
+rename it to a timestamped backup; never delete it. Retry BOOTSTRAP Step 2 method C — it creates
+a new uniquely named temporary folder each time, so stale ZIP and extraction files cannot collide.
 
 **`cd $HOME\Downloads\unlockai-social-media` says "path not found"**
 → The download landed somewhere else, or the folder name differs. List `$HOME\Downloads` and look
