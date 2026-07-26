@@ -133,5 +133,32 @@ recipient's **Requests** folder if they don't follow you.
 
 ---
 
+## Running the bot (`bot/run.py`)
+
+**`python: command not found` / `'python' is not recognized` (Windows)**
+→ Try `py bot\run.py` instead of `python`. Still nothing? Install Python from python.org (tick
+**"Add Python to PATH"** during install), open a new terminal, retry. (Macs already have `python3`
+— use `python3 bot/run.py`.)
+
+**`IG_ACCESS_TOKEN and/or IG_USER_ID missing from .env`**
+→ Finish the visual guide and let the assistant save your keys, or paste them into the repo's
+`.env` file as `IG_ACCESS_TOKEN=...` and `IG_USER_ID=...` (the numeric id).
+
+**`No campaign file` / missing field**
+→ Run `/autoreply` (the assistant writes `bot/campaign.json`), or copy `bot/campaign.example.json`
+to `bot/campaign.json` and fill in the post URL, keyword, reply, and DM text.
+
+**Dry-run says `matched=0`** → no unhandled comment contains your keyword yet. Have a **second
+account** comment the exact keyword, then run again. (Already-answered comments are remembered in
+`bot/state.json`, so they never fire twice.)
+
+**"Refusing to send live — unfilled `<<placeholder>>`"** → your `dm_text`/`public_reply` still has
+a `<<...>>` token. Put the real link/text in `bot/campaign.json`, then re-run.
+
+**Comments come back empty even though the post has comments** → the Meta app isn't **Published**
+(see the Meta section above). Publish it.
+
+---
+
 Still stuck? DM **[@butabuilds](https://instagram.com/butabuilds)** — or ask the person running
 the workshop.

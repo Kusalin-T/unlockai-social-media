@@ -1,0 +1,10 @@
+{
+  "post_url": "https://www.instagram.com/reel/XXXXXXXXXXX/",
+  "keywords": ["สนใจ", "AI"],
+  "match": "word",
+  "public_reply": "ส่งให้ทาง DM แล้วนะครับ เช็คกล่องข้อความเลย 📩",
+  "dm_text": "สวัสดีครับ 🔓 นี่ลิงก์ที่ทักไว้เลย: https://your-link-here.com  มีคำถามพิมพ์มาได้เลยนะครับ",
+  "once_per_user": true,
+  "lang": "auto",
+  "_note": "match: 'word' (keyword on word boundaries) | 'contains' (anywhere) | 'exact' (whole comment). post_url can be '*' to answer your recent posts. Copy this file to campaign.json and fill it in — or just run /autoreply and let the assistant write it."
+}

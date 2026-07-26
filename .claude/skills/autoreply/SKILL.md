@@ -43,7 +43,12 @@ Build a **Comment-to-DM** campaign: someone comments a set keyword → the bot r
 4. Append the **setup steps** at the end of the file (written for a non-technical person). The
    workshop's main path is the **API path** — the student gets their own Instagram key:
    - **Open the visual guide for them**: `open guide/meta-setup.html` (macOS) / `start guide\meta-setup.html` (Windows), and walk it screen-by-screen. Full written version + safety rules: **[META-SETUP.md](../../../META-SETUP.md)**.
-   - It ends with the student holding **App ID + App Secret + access token**. Honor the safety rules: **never retry a DM send** (it may have already delivered), one reply per comment, skip the account's own comments.
+   - It ends with the student holding **App ID + App Secret + access token**. Save `IG_ACCESS_TOKEN` and `IG_USER_ID` into the repo-root `.env` (it's gitignored). `IG_USER_ID` = the numeric id from the API setup page / `GET me?fields=user_id`.
+   - **Then run the bot** (`bot/run.py`) — it does the actual comment→DM using their token:
+     1. Write this campaign into `bot/campaign.json` (fields: `post_url`, `keywords`, `match`, `public_reply`, `dm_text`, `once_per_user`, `lang`). Template: `bot/campaign.example.json`.
+     2. **Dry-run first**: `python bot/run.py` (Windows: `py bot\run.py`) — shows what it would send, sends nothing. Check it looks right.
+     3. **Go live**: `python bot/run.py --live` — only after a real comment exists from a *second* account.
+   - The bot enforces the safety rules for them: **never retries a DM send** (it may have already delivered), claims each comment before sending, one reply per comment, skips own comments, 7-day window. Never remove those.
    - **Fallback if they stall or time's short** → the no-code way: **Meta Business Suite** → Inbox → **Automations** → "Comment → Message", or **ManyChat** ("Comment Growth Tool" template) — paste the keyword, public reply, and DM text from this file. A working no-code bot beats a half-finished API one.
 5. Reinforce two things:
    - One keyword per campaign/post — easy to measure, no collisions.

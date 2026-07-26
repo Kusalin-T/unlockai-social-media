@@ -42,6 +42,9 @@ version:
    **zero** comments from normal followers — this is the #1 "why isn't it working".
 9. **Hand the three values to the assistant** — it stores `App ID`, `App Secret`, `Access token`
    in a private `.env` on the machine; they never leave the computer.
+10. **Run the bot** — `bot/run.py` does the actual comment→DM with that token (see
+   [bot/README.md](bot/README.md)). Always **dry-run first** (`python bot/run.py`), then
+   `python bot/run.py --live` once a real comment from a second account exists. Windows: `py bot\run.py`.
 
 ### Safety rules the assistant must honor (Path B)
 - **Never retry a private-reply DM send.** The endpoint can deliver the DM *while returning an

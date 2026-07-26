@@ -1,3 +1,12 @@
 brand/brand.md
 .DS_Store
 dist-*.zip
+
+# secrets + per-student runtime state — never commit
+.env
+bot/campaign.json
+bot/state.json
+bot/state.json.tmp
+bot/contacts.csv
+__pycache__/
+*.pyc

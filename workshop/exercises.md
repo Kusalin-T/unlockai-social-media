@@ -23,8 +23,10 @@ The main event. Follow the **visual guide** — the assistant opens it, or run `
 
 ## ✅ Block 4 — Comment-to-DM, live
 - [ ] Run `/autoreply` → design a "comment <KEYWORD> to get <item>" campaign → get `output/campaign-<keyword>.md`
-- [ ] Give your keys to the assistant so it can wire up the bot
-- [ ] Test for real: have the person next to you comment your keyword from **their** account → you get a public reply + a DM lands in their inbox 🎉 (you can't self-test from your own account)
+- [ ] Give your keys to the assistant → it saves them to `.env` and writes `bot/campaign.json`
+- [ ] **Dry-run** the bot: `python bot/run.py` (Windows: `py bot\run.py`) — shows what it would send, sends nothing
+- [ ] Have the person next to you comment your keyword from **their** account (you can't self-test from your own)
+- [ ] **Go live**: `python bot/run.py --live` → they get a public reply + a DM 🎉
 
 ## 🏠 Homework (if you don't finish in class, keep going at home)
 - [ ] `/ideas` for a topic you want to push this month
