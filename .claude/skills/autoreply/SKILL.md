@@ -40,10 +40,11 @@ Build a **Comment-to-DM** campaign: someone comments a set keyword → the bot r
 - [ ] The link in the DM actually works
 ```
 
-4. Append the **setup steps** at the end of the file (written for a non-technical person):
-   - **Meta Business Suite** → Inbox → **Automations** → find a "reply when someone comments / Comment → Message" automation → enter the keyword, public reply, and DM text from this file.
-   - If Business Suite doesn't show the full menu (features differ by account/country) → free alternative: **ManyChat** (connect IG, use the "Comment Growth Tool" template) — paste the same set of messages.
-   - Then guide the actual connection using **[META-SETUP.md](../../../META-SETUP.md)** — it starts with the no-code vs API-key decision (default: no-code). If the student wants the **API path** (their own Meta app + access token), **open the visual guide for them**: `open guide/meta-setup.html` (macOS) / `start guide\meta-setup.html` (Windows), and walk it screen-by-screen. Honor the Path-B safety rules (never retry a DM send; one reply per comment; skip own comments).
+4. Append the **setup steps** at the end of the file (written for a non-technical person). The
+   workshop's main path is the **API path** — the student gets their own Instagram key:
+   - **Open the visual guide for them**: `open guide/meta-setup.html` (macOS) / `start guide\meta-setup.html` (Windows), and walk it screen-by-screen. Full written version + safety rules: **[META-SETUP.md](../../../META-SETUP.md)**.
+   - It ends with the student holding **App ID + App Secret + access token**. Honor the safety rules: **never retry a DM send** (it may have already delivered), one reply per comment, skip the account's own comments.
+   - **Fallback if they stall or time's short** → the no-code way: **Meta Business Suite** → Inbox → **Automations** → "Comment → Message", or **ManyChat** ("Comment Growth Tool" template) — paste the keyword, public reply, and DM text from this file. A working no-code bot beats a half-finished API one.
 5. Reinforce two things:
    - One keyword per campaign/post — easy to measure, no collisions.
    - The first week, check the real DMs daily: how people reply, bring it back to the AI so it can sharpen the copy.

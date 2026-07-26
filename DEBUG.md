@@ -100,11 +100,11 @@ visual walkthrough with `open guide/meta-setup.html` (macOS) / `start guide\meta
 (Windows). The most common blockers, and how to clear them:
 
 **Which path do I even use?**
-→ Two options. **No-code (recommended for most):** Meta Business Suite → Inbox → **Automations**,
-or **ManyChat** (free "Comment Growth Tool" template) — paste the keyword/reply/DM from your
-`output/campaign-*.md`. **API path (self-hosted, advanced):** create your own Meta app, get an
-access token — that's the visual guide's subject. Not sure? Use no-code; a helper can move you to
-the API path if you want it.
+→ Today's main path is the **API path**: create your own Meta app and get your own access token —
+that's the visual guide (`guide/meta-setup.html`). **If it stalls or time runs short, fall back to
+no-code:** Meta Business Suite → Inbox → **Automations**, or **ManyChat** (free "Comment Growth
+Tool" template) — paste the keyword/reply/DM from your `output/campaign-*.md`. A working no-code
+bot beats a half-finished API one.
 
 **(API path) I created the app but `GET /{media}/comments` returns 0 even though the post has comments**
 → The app is still in **Development mode**. In Development, only role-holders' comments are

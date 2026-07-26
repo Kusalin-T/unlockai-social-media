@@ -11,34 +11,20 @@ and give the plain next step. If a step needs a human, tell them to raise their 
 
 ---
 
-## First: which path? (this is the fork people get wrong)
+## The workshop path: the API (get your own key)
 
-| Path | For whom | Needs a "secret key / API key"? |
-|---|---|---|
-| **No-code — Business Suite / ManyChat** | Most creators. Fastest. | **No** |
-| **API — your own Meta app + access token (self-hosted)** | People who want to run it themselves / at scale | **Yes** (App ID + App Secret + access token) |
-
-Ask the student which they want. **Default to no-code** unless they specifically want the API path
-(the visual guide covers the API path — that's the "getting the secret key" flow).
+Today's main event is **Path A below** — the student creates their own Meta app and gets their
+own **App ID + App Secret + access token**. It's the powerful version, and it's the breakage-prone
+one, so go slowly, one screen at a time, and lean on the visual guide. **If a student gets stuck
+or you're running out of time, fall back to the no-code path at the bottom** — a working no-code
+bot beats a half-finished API one.
 
 ---
 
-## Path A — No-code (recommended)
+## Path A — API (the workshop path): create your own app + get the keys
 
-1. Log in to `business.facebook.com` with the account that has the Instagram connected.
-2. Make sure the **Instagram** account is linked in the same Business Suite.
-3. **Inbox → Automations** → look for a **"Comment → Message"** / reply-to-comment automation.
-4. Paste the keyword, public reply, and DM text from your `output/campaign-*.md` (built by `/autoreply`).
-5. **If the automation menu isn't there** (features differ by account/country) → use **ManyChat**
-   (free): connect Instagram → **Comment Growth Tool** template → paste the same three pieces.
-
-That's it — no keys, no publishing. Skip the rest of this file.
-
----
-
-## Path B — API (self-hosted): create your own app + get the keys
-
-Follow the **visual guide** (`guide/meta-setup.html`) screen-by-screen. The written version:
+Follow the **visual guide** (`guide/meta-setup.html`) screen-by-screen — open it now. The written
+version:
 
 1. **Create the app** — `developers.facebook.com` → **Create App** → **Other** → **Business**.
 2. **Don't click "Become a Tech Provider."** That starts App Review, which own-account use does
@@ -64,6 +50,21 @@ Follow the **visual guide** (`guide/meta-setup.html`) screen-by-screen. The writ
   magnets go as a **tappable link**, not inline.
 - **Skip own-account comments** (don't reply to yourself → loops).
 - Space sends ~2s; back off on rate-limit error codes.
+
+---
+
+## Fallback — no-code (Business Suite / ManyChat)
+
+If the API path stalls or time's short, get a working bot the no-code way — no keys, no publishing:
+
+1. Log in to `business.facebook.com` with the account the Instagram is connected to.
+2. Make sure the **Instagram** account is linked in the same Business Suite.
+3. **Inbox → Automations** → find a **"Comment → Message"** / reply-to-comment automation → paste
+   the keyword, public reply, and DM text from your `output/campaign-*.md`.
+4. **No automation menu?** (features differ by account/country) → use **ManyChat** (free): connect
+   Instagram → **Comment Growth Tool** template → paste the same three pieces.
+
+You can always come back and do the API path later.
 
 ---
 

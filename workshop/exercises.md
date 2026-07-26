@@ -12,15 +12,19 @@
 - [ ] Open `brand/brand.md` — tweak it until it feels right
 - [ ] Run `/caption` for your first post — pick 1 of 3
 
-## ✅ Block 3 — connect Meta Business Suite
-- [ ] Log in to business.facebook.com with the account that has your Page
-- [ ] Check that your IG + Page are in the same Business Suite
-- [ ] Open Inbox → Automations and leave it open
+## ✅ Block 3 — get your Instagram key (Meta app)
+The main event. Follow the **visual guide** — the assistant opens it, or run `open guide/meta-setup.html` (Mac) / `start guide\meta-setup.html` (Windows).
+- [ ] Create your own Meta app (developers.facebook.com) — **don't** click "Become a Tech Provider"
+- [ ] Add Instagram → "API setup with Instagram login"
+- [ ] Copy your **App ID** + **App Secret**, generate your **access token**
+- [ ] Add a Privacy Policy URL → **Publish** the app (this is what makes it work on real followers)
+- [ ] Stuck on a screen? Raise your hand — a helper will jump in
+> Short on time or blocked? The no-code fallback (Business Suite / ManyChat) is at the bottom of META-SETUP.md.
 
-## ✅ Block 4 — Comment-to-DM campaign
+## ✅ Block 4 — Comment-to-DM, live
 - [ ] Run `/autoreply` → design a "comment <KEYWORD> to get <item>" campaign → get `output/campaign-<keyword>.md`
-- [ ] Set up the automation in Business Suite (or ManyChat) per the steps at the bottom of the file
-- [ ] Test for real: have the person next to you comment your keyword under your post → the bot replies under the comment + a DM lands in their inbox 🎉
+- [ ] Give your keys to the assistant so it can wire up the bot
+- [ ] Test for real: have the person next to you comment your keyword from **their** account → you get a public reply + a DM lands in their inbox 🎉 (you can't self-test from your own account)
 
 ## 🏠 Homework (if you don't finish in class, keep going at home)
 - [ ] `/ideas` for a topic you want to push this month
