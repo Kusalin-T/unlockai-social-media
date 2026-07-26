@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UnlockAI — Instagram API setup (visual guide)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Trirong:ital,wght@1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#FFFFFF; --band:#F7F5F1; --hairline:#E8E5E0; --hairline-strong:#D6D2CB;
+    --ink:#1D1C1A; --muted:#6E6A64; --dim:#9B968E;
+    --signal:#3F65B8; --signal-soft:#94B6EF; --signal-wash:rgba(148,182,239,.14);
+    --orange:#E68C3A; --orange-wash:rgba(230,140,58,.12); --success:#1F7A4D; --success-wash:rgba(31,122,77,.10);
+    --font-voice:'Anuphan',system-ui,sans-serif; --font-mono:'JetBrains Mono',ui-monospace,monospace; --font-accent:'Trirong',serif;
+    --r-control:8px; --r-card:12px;
+    --ease:cubic-bezier(.25,1,.5,1); --spring:cubic-bezier(.34,1.56,.64,1);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { height:100%; }
+  body { font-family:var(--font-voice); color:var(--ink); background:var(--band); -webkit-font-smoothing:antialiased; letter-spacing:-.011em; }
+  .mono { font-family:var(--font-mono); font-feature-settings:"tnum"; }
+
+  /* editorial furniture */
+  .cropmark { position:fixed; width:20px; height:20px; pointer-events:none; z-index:3; }
+  .cropmark::before,.cropmark::after { content:''; position:absolute; background:var(--hairline-strong); }
+  .cropmark::before { width:20px; height:1px; } .cropmark::after { width:1px; height:20px; }
+  .cropmark.tl { top:18px; left:18px; } .cropmark.tr { top:18px; right:18px; }
+  .cropmark.tr::before { right:0; } .cropmark.tr::after { right:0; }
+  .cropmark.bl { bottom:74px; left:18px; } .cropmark.bl::before { bottom:0; } .cropmark.bl::after { bottom:0; }
+  .cropmark.br { bottom:74px; right:18px; } .cropmark.br::before { right:0; bottom:0; } .cropmark.br::after { right:0; bottom:0; }
+
+  .runhead {
+    position:fixed; top:22px; left:56px; right:56px; z-index:4;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--dim);
+    padding-bottom:10px; border-bottom:1px solid var(--hairline-strong);
+  }
+  .runhead .brand b { color:var(--ink); font-weight:700; }
+
+  /* stage */
+  .stage { min-height:100vh; display:grid; place-items:center; padding:88px 56px 96px; }
+  .frame { display:none; width:100%; max-width:940px; }
+  .frame.active { display:block; animation:rise .5s var(--ease) both; }
+  @keyframes rise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+  .kicker { font-family:var(--font-mono); font-size:13px; letter-spacing:.06em; color:var(--muted); margin-bottom:14px; }
+  .kicker .mark { color:var(--signal); }
+  h1 { font-size:44px; font-weight:700; letter-spacing:-.03em; line-height:1.08; }
+  h2 { font-size:30px; font-weight:700; letter-spacing:-.025em; line-height:1.14; }
+  .o { color:var(--orange); }
+  .th { display:block; font-size:16px; line-height:1.7; color:var(--dim); margin-top:8px; font-weight:400; letter-spacing:0; }
+  .th[lang="th"] { line-height:1.75; }
+
+  .lead { font-size:18px; line-height:1.6; color:var(--muted); margin-top:16px; max-width:64ch; }
+
+  /* two-column step: shot + guidance */
+  .step { display:grid; grid-template-columns:1.15fr .85fr; gap:32px; align-items:start; margin-top:26px; }
+  @media (max-width:820px) { .step { grid-template-columns:1fr; } }
+
+  /* screenshot slot — graceful placeholder until a real image is dropped in */
+  .shot { position:relative; border-radius:var(--r-card); overflow:hidden; border:1px solid var(--hairline-strong); background:var(--paper); aspect-ratio:16/10; }
+  .shot .ph {
+    position:absolute; inset:0; display:flex; flex-direction:column; gap:8px; align-items:center; justify-content:center; text-align:center; padding:24px;
+    background:
+      linear-gradient(var(--band),var(--band)) padding-box,
+      repeating-linear-gradient(45deg, var(--hairline) 0 8px, transparent 8px 16px);
+    border:2px dashed var(--hairline-strong); border-radius:var(--r-card);
+  }
+  .shot .ph .tag { font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--signal); background:var(--signal-wash); padding:4px 10px; border-radius:999px; }
+  .shot .ph .desc { font-size:14px; line-height:1.55; color:var(--muted); max-width:32ch; }
+  .shot .ph .file { font-family:var(--font-mono); font-size:11.5px; color:var(--dim); }
+  .shot img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center; background:var(--paper); }
+
+  .guide .num { font-family:var(--font-mono); font-weight:700; font-size:13px; color:var(--signal); letter-spacing:.1em; }
+  .guide .do { font-size:19px; font-weight:600; line-height:1.4; margin-top:6px; }
+  .guide ul { list-style:none; margin-top:16px; display:flex; flex-direction:column; gap:12px; }
+  .guide li { position:relative; padding-left:24px; font-size:15px; line-height:1.6; color:var(--ink); }
+  .guide li::before { content:''; position:absolute; left:2px; top:9px; width:7px; height:7px; border-radius:2px; background:var(--signal-soft); }
+  .guide li b { font-weight:700; }
+  code { font-family:var(--font-mono); font-size:.88em; background:var(--band); border:1px solid var(--hairline); border-radius:6px; padding:1px 6px; }
+
+  .pill { display:inline-flex; gap:8px; align-items:flex-start; border-radius:10px; padding:12px 14px; font-size:14px; line-height:1.55; margin-top:16px; }
+  .pill .ico { font-size:15px; line-height:1.3; flex:none; }
+  .pill.warn { background:var(--orange-wash); border:1px solid rgba(230,140,58,.4); color:#8a5216; }
+  .pill.ok { background:var(--success-wash); border:1px solid rgba(31,122,77,.3); color:var(--success); }
+  .pill.info { background:var(--signal-wash); border:1px solid rgba(63,101,184,.3); color:#2b4680; }
+  .pill b { font-weight:700; }
+
+  .keychip { display:inline-flex; align-items:center; gap:8px; font-family:var(--font-mono); font-size:13px; background:var(--paper); border:1px solid var(--hairline-strong); border-radius:8px; padding:8px 12px; margin:6px 8px 0 0; }
+  .keychip .k { color:var(--dim); } .keychip .v { color:var(--signal); font-weight:700; }
+
+  .cover-you-get { display:flex; flex-direction:column; gap:10px; margin-top:26px; max-width:60ch; }
+  .cover-you-get .row { display:flex; gap:12px; align-items:flex-start; font-size:16px; line-height:1.5; }
+  .cover-you-get .n { font-family:var(--font-mono); color:var(--signal); font-weight:700; flex:none; }
+
+  /* nav bar */
+  .nav {
+    position:fixed; bottom:0; left:0; right:0; height:64px; z-index:5;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:0 56px; background:var(--paper); border-top:1px solid var(--hairline-strong);
+  }
+  .nav button {
+    font-family:var(--font-voice); font-size:15px; font-weight:600; cursor:pointer;
+    border:1px solid var(--hairline-strong); background:var(--paper); color:var(--ink);
+    border-radius:var(--r-control); padding:10px 18px; transition:.18s var(--ease);
+  }
+  .nav button:hover:not(:disabled) { border-color:var(--signal); color:var(--signal); }
+  .nav button:disabled { opacity:.35; cursor:default; }
+  .nav .next { background:var(--signal); color:#fff; border-color:var(--signal); }
+  .nav .next:hover { filter:brightness(1.06); color:#fff; }
+  .dots { display:flex; gap:7px; align-items:center; }
+  .dots i { width:8px; height:8px; border-radius:50%; background:var(--hairline-strong); cursor:pointer; transition:.2s; }
+  .dots i.on { background:var(--signal); transform:scale(1.25); }
+  .counter { font-family:var(--font-mono); font-size:12px; color:var(--dim); letter-spacing:.08em; }
+</style>
+</head>
+<body>
+<div class="cropmark tl"></div><div class="cropmark tr"></div><div class="cropmark bl"></div><div class="cropmark br"></div>
+<div class="runhead">
+  <span class="brand"><b>UnlockAI</b> · Instagram API setup</span>
+  <span id="rh-step">step 0</span>
+</div>
+
+<div class="stage">
+
+  <!-- 0 · COVER -->
+  <section class="frame">
+    <div class="kicker"><span class="mark">❯</span> visual guide · click through with → or the button</div>
+    <h1>Get your Instagram <span class="o">key</span>,<br>step by step</h1>
+    <div class="th" lang="th">ค่อย ๆ ทำทีละขั้น เดี๋ยวได้ API key ของ Instagram มาแน่นอน — มีทีมงานช่วยตรงนี้</div>
+    <div class="cover-you-get">
+      <div class="row"><span class="n">→</span><span>Create your own Meta app (free)</span></div>
+      <div class="row"><span class="n">→</span><span>Copy your <b>App ID</b> + <b>App Secret</b> (the "secret key")</span></div>
+      <div class="row"><span class="n">→</span><span>Generate your <b>access token</b> (the "API key")</span></div>
+      <div class="row"><span class="n">→</span><span>Publish the app so it works on real followers</span></div>
+    </div>
+    <div class="pill info"><span class="ico">◆</span><span>Take it slow — one screen per step. Stuck on any screen? <b>Raise your hand</b>, a helper will jump in. <span class="th" lang="th">ติดตรงไหนยกมือได้เลย</span></span></div>
+  </section>
+
+  <!-- 1 · CREATE APP -->
+  <section class="frame">
+    <div class="kicker"><span class="mark">❯</span> step 1 · create the app</div>
+    <h2>Go to the Meta developer site and create an app</h2>
+    <div class="th" lang="th">เข้าเว็บนักพัฒนาของ Meta แล้วสร้างแอปใหม่</div>
+    <div class="step">
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">developers.facebook.com — the "Create App" button (top right)</span><span class="file">screens/01-create-app.png</span></div><img src="screens/01-create-app.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="guide">
+        <div class="num">DO THIS</div>
+        <div class="do">Open <code>developers.facebook.com</code> → log in with your Facebook account → click <b>Create App</b>.</div>
+        <ul>
+          <li>Use the same login that your Instagram is connected to.</li>
+          <li>If it asks you to register as a developer first, accept and continue — it's free.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · USE CASE -->
+  <section class="frame">
+    <div class="kicker"><span class="mark">❯</span> step 2 · choose the use case</div>
+    <h2>Pick "Other" → then the <span class="o">Business</span> type</h2>
+    <div class="th" lang="th">เลือก Other แล้วเลือกประเภท Business</div>
+    <div class="step">
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">The use-case picker — choose "Other", then app type "Business"</span><span class="file">screens/02-usecase.png</span></div><img src="screens/02-usecase.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="guide">
+        <div class="num">DO THIS</div>
+        <div class="do">Choose <b>Other</b> at the bottom → <b>Next</b> → app type <b>Business</b> → <b>Next</b>.</div>
+        <ul>
+          <li>Give it any name (e.g. "my-comment-bot"). Only you see it.</li>
+          <li>Pick your business account if it asks; otherwise leave it as "No business portfolio".</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · DON'T become tech provider -->
+  <section class="frame">
+    <div class="kicker"><span class="mark">❯</span> step 3 · the one trap to avoid</div>
+    <h2>You land on the dashboard. <span class="o">Don't</span> click "Become a Tech Provider"</h2>
+    <div class="th" lang="th">พอเข้า dashboard แล้ว อย่ากดปุ่ม "Become a Tech Provider" เด็ดขาด</div>
+    <div class="step">
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">The app dashboard — circle/point at "Become a Tech Provider" with a red "don't click" mark</span><span class="file">screens/03-dashboard-no-techprovider.png</span></div><img src="screens/03-dashboard-no-techprovider.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="guide">
+        <div class="num">WHY IT MATTERS</div>
+        <div class="do">"Become a Tech Provider" starts the App Review process — which you <b>do not need</b> for your own account.</div>
+        <div class="pill warn"><span class="ico">▲</span><span>For your own Instagram, <b>no App Review is required</b>. Skip that button and keep going.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · add Instagram product -->
+  <section class="frame">
+    <div class="kicker"><span class="mark">❯</span> step 4 · add Instagram</div>
+    <h2>Add the <b>Instagram</b> product → "API setup with Instagram login"</h2>
+    <div class="th" lang="th">เพิ่มผลิตภัณฑ์ Instagram แล้วเลือก "API setup with Instagram login"</div>
+    <div class="step">
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">Products list → Instagram "Set up" → the "API setup with Instagram login" option</span><span class="file">screens/04-add-instagram.png</span></div><img src="screens/04-add-instagram.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="guide">
+        <div class="num">DO THIS</div>
+        <div class="do">In the products list, find <b>Instagram</b> → <b>Set up</b> → choose <b>API setup with Instagram login</b>.</div>
+        <div class="pill info"><span class="ico">◆</span><span>This path needs <b>no Facebook Page</b> — it works straight off your Instagram. <span class="th" lang="th">ไม่ต้องมีเพจ Facebook</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · App ID + Secret -->
+  <section class="frame">
+    <div class="kicker"><span class="mark">❯</span> step 5 · your secret key</div>
+    <h2>Copy your <b>App ID</b> and <b>App Secret</b></h2>
+    <div class="th" lang="th">คัดลอก App ID และ App Secret เก็บไว้ — นี่คือ "secret key"</div>
+    <div class="step">
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">App settings → Basic → App ID and App Secret (blur the secret value in the shot)</span><span class="file">screens/05-app-id-secret.png</span></div><img src="screens/05-app-id-secret.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="guide">
+        <div class="num">DO THIS</div>
+        <div class="do">Left sidebar → <b>App settings → Basic</b>. Copy the <b>App ID</b> and click <b>Show</b> on <b>App Secret</b>.</div>
+        <div class="keychip"><span class="k">App ID</span><span class="v">1234…</span></div>
+        <div class="keychip"><span class="k">App Secret</span><span class="v">abc…</span></div>
+        <div class="pill warn"><span class="ico">▲</span><span>Treat the <b>App Secret like a password</b> — paste it only where the assistant tells you, never in a public post or chat.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · add tester -->
+  <section class="frame">
+    <div class="kicker"><span class="mark">❯</span> step 6 · connect your Instagram</div>
+    <h2>Add your Instagram as a tester, and accept in the app</h2>
+    <div class="th" lang="th">เพิ่มบัญชี Instagram ของคุณเป็น tester แล้วกดยอมรับในแอป Instagram</div>
+    <div class="step">
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">Roles / Instagram testers → add your IG username; + the "accept" screen inside the IG app (Settings → Apps and websites → Tester invites)</span><span class="file">screens/06-add-tester.png</span></div><img src="screens/06-add-tester.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="guide">
+        <div class="num">DO THIS</div>
+        <div class="do">Add your IG handle as an <b>Instagram Tester</b>, then open Instagram on your phone → <b>Settings → Apps and websites → Tester invites</b> → <b>Accept</b>.</div>
+        <ul>
+          <li>Your Instagram must be a <b>Professional</b> account (Business or Creator).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · token -->
+  <section class="frame">
+    <div class="kicker"><span class="mark">❯</span> step 7 · your API key (token)</div>
+    <h2>Generate your <b>access token</b></h2>
+    <div class="th" lang="th">สร้าง access token — นี่คือ "API key" ที่ระบบใช้ทำงานแทนคุณ</div>
+    <div class="step">
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">The "Generate access token" button + the token result (blur the token value)</span><span class="file">screens/07-generate-token.png</span></div><img src="screens/07-generate-token.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="guide">
+        <div class="num">DO THIS</div>
+        <div class="do">On the Instagram API setup page → <b>Generate access token</b> → approve the permission screen → copy the long token.</div>
+        <div class="keychip"><span class="k">Access token</span><span class="v">IGQV…</span></div>
+        <div class="pill info"><span class="ico">◆</span><span>This token lasts ~60 days; the assistant will help you refresh it later. <span class="th" lang="th">โทเคนอยู่ได้ ~60 วัน เดี๋ยวช่วยต่ออายุให้</span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 · privacy url -->
+  <section class="frame">
+    <div class="kicker"><span class="mark">❯</span> step 8 · privacy policy URL</div>
+    <h2>Add a <b>Privacy Policy URL</b> (needed to publish)</h2>
+    <div class="th" lang="th">ใส่ลิงก์ Privacy Policy — จำเป็นก่อนกด publish</div>
+    <div class="step">
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">App settings → Basic → the Privacy Policy URL field filled in</span><span class="file">screens/08-privacy-url.png</span></div><img src="screens/08-privacy-url.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="guide">
+        <div class="num">DO THIS</div>
+        <div class="do">App settings → Basic → paste a real, reachable <b>Privacy Policy URL</b> → <b>Save Changes</b>.</div>
+        <ul>
+          <li>Don't have one? The assistant can publish a 2-minute policy page for you — just ask.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 · publish -->
+  <section class="frame">
+    <div class="kicker"><span class="mark">❯</span> step 9 · go live</div>
+    <h2><b>Publish</b> the app — this is what makes it work on real followers</h2>
+    <div class="th" lang="th">กด Publish — ขั้นนี้แหละที่ทำให้บอทเห็นคอมเมนต์ของคนจริง ๆ</div>
+    <div class="step">
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">Left sidebar → Publish, showing the "Unpublished" badge flipping after publishing</span><span class="file">screens/09-publish.png</span></div><img src="screens/09-publish.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="guide">
+        <div class="num">DO THIS</div>
+        <div class="do">Left sidebar → <b>Publish</b> → confirm. The <code>Unpublished</code> badge disappears.</div>
+        <div class="pill warn"><span class="ico">▲</span><span>Skip this and the bot sees <b>zero comments</b> from normal followers. This step is the usual "why isn't it working".</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · paste keys -->
+  <section class="frame">
+    <div class="kicker"><span class="mark">❯</span> step 10 · hand the keys to the assistant</div>
+    <h2>Paste your three values where the assistant asks</h2>
+    <div class="th" lang="th">เอา 3 ค่านี้ไปวางตรงที่ผู้ช่วยบอก แล้วมันจะตั้งค่าให้เอง</div>
+    <div class="step">
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">Terminal/Claude asking for the keys, values pasted (blurred) — optional</span><span class="file">screens/10-paste-keys.png</span></div><img src="screens/10-paste-keys.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="guide">
+        <div class="num">DO THIS</div>
+        <div class="do">Back in Claude, tell it you have your keys. It will save them safely and wire up the bot.</div>
+        <div class="keychip"><span class="k">App ID</span></div><div class="keychip"><span class="k">App Secret</span></div><div class="keychip"><span class="k">Access token</span></div>
+        <div class="pill info"><span class="ico">◆</span><span>The assistant stores these in a private <code>.env</code> file on your computer — they never leave your machine.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · DONE / test -->
+  <section class="frame">
+    <div class="kicker"><span class="mark">❯</span> done · test it for real</div>
+    <h2>Test it — the right way</h2>
+    <div class="th" lang="th">ทดสอบให้ถูกวิธี: ให้เพื่อนคอมเมนต์ ไม่ใช่คอมเมนต์เอง</div>
+    <div class="step">
+      <div class="guide" style="grid-column:1 / -1;">
+        <div class="do">Have the person next to you comment your keyword under your post — from <b>their</b> account.</div>
+        <ul>
+          <li>You should get a <b>public reply</b> under the comment <b>and</b> an auto-<b>DM</b> to them.</li>
+          <li>You <b>can't</b> test from your own account (own comments are skipped, and you can't DM yourself).</li>
+          <li>The DM lands in their <b>Requests</b> folder if they don't follow you yet — that's normal.</li>
+        </ul>
+        <div class="pill ok"><span class="ico">✓</span><span>Both the reply and the DM showed up? You're live. <span class="th" lang="th">ขึ้นทั้งคู่ = ใช้งานได้จริงแล้ว 🎉</span></span></div>
+        <div class="pill warn" style="margin-top:12px"><span class="ico">▲</span><span><b>Never re-send a DM that "looks failed"</b> — it may have already been delivered. One comment = one DM. Let the assistant handle sends.</span></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<nav class="nav">
+  <button class="prev" id="prev">‹ Back</button>
+  <div class="dots" id="dots"></div>
+  <span class="counter" id="counter"></span>
+  <button class="next" id="next">Next ›</button>
+</nav>
+
+<script>
+  const frames = [...document.querySelectorAll('.frame')];
+  const total = frames.length;
+  let i = Math.min(Math.max((parseInt(location.hash.slice(1),10)||1)-1, 0), total-1);
+
+  const dotsWrap = document.getElementById('dots');
+  frames.forEach((_,n) => { const d=document.createElement('i'); d.onclick=()=>{i=n;render();}; dotsWrap.appendChild(d); });
+  const dots = [...dotsWrap.children];
+
+  function render() {
+    frames.forEach((f,n)=>f.classList.toggle('active', n===i));
+    dots.forEach((d,n)=>d.classList.toggle('on', n===i));
+    document.getElementById('prev').disabled = i===0;
+    document.getElementById('next').disabled = i===total-1;
+    document.getElementById('counter').textContent = `${i+1} / ${total}`;
+    document.getElementById('rh-step').textContent = i===0 ? 'start' : (i===total-1 ? 'done' : `step ${i} of ${total-2}`);
+    location.hash = i+1;
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  document.getElementById('prev').onclick = ()=>{ if(i>0){i--;render();} };
+  document.getElementById('next').onclick = ()=>{ if(i<total-1){i++;render();} };
+  document.addEventListener('keydown', e => {
+    if (e.key==='ArrowRight'||e.key===' ') { e.preventDefault(); if(i<total-1){i++;render();} }
+    else if (e.key==='ArrowLeft') { e.preventDefault(); if(i>0){i--;render();} }
+  });
+  render();
+</script>
+</body>
+</html>

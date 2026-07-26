@@ -13,7 +13,28 @@ find the matching symptom, apply the fix, then continue where you left off.
 Repo (public, no login needed): `https://github.com/Kusalin-T/unlockai-social-media`
 Default branch: `master`
 
+**Golden rule: never let the student watch a raw error.** If any command fails, don't paste the
+stack trace at them — read the failure yourself, match it in DEBUG.md, fix it, and only tell them
+the plain next step. One thing at a time. If you're ever stuck after two tries, tell them in Thai:
+"ยกมือเรียกทีมงานได้เลยครับ ตรงนี้เดี๋ยวช่วยจัดให้" (raise your hand — a helper will sort this out).
+
 ---
+
+## Step 0 — Preflight (do this first, it prevents most breakage)
+
+Before downloading anything, confirm the ground is solid. Run these and read the results:
+
+1. **Which shell am I in?** On Windows you may be in PowerShell (commands like `Invoke-WebRequest`)
+   or Git-Bash (commands like `curl`/`tar`). Detect it and use the matching column in Step 2 —
+   do not mix them. If unsure, run `echo $PSVersionTable` (PowerShell prints a table; Bash errors).
+2. **Can I reach the internet?** Check that `https://codeload.github.com` is reachable
+   (a HEAD request or a tiny curl/Invoke-WebRequest). If not → DEBUG.md → "No internet".
+3. **Do I have a home Downloads folder?** If `~/Downloads` (mac/Linux) or `$HOME\Downloads`
+   (Windows) doesn't exist, create it. Never write to a system folder.
+4. **Report platform in one line to the student, in Thai** (e.g. "เครื่อง Windows พร้อมแล้วครับ")
+   so they — and any helper walking by — know what you detected.
+
+Only once all four pass, continue.
 
 ## Step 1 — Work out the platform and the target folder
 

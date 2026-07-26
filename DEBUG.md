@@ -52,6 +52,29 @@ retry. The whole repo is tiny (a few KB), so a slow download means the network, 
 
 ---
 
+## Windows-specific
+
+**Mixed-up shell (a PowerShell command errors, or a bash command errors)**
+→ Windows has two shells and their commands differ. `Invoke-WebRequest`/`Expand-Archive` are
+**PowerShell**; `curl`/`tar` are **Git-Bash**. Detect which you're in (run `echo $PSVersionTable`
+— PowerShell prints a table, Bash errors) and use the matching column in BOOTSTRAP Step 2. Don't
+mix them.
+
+**`Expand-Archive` / `Move-Item` fails ("already exists" / "in use")**
+→ A leftover folder from a previous try. Delete `$HOME\Downloads\unlockai-social-media` and the
+temp files (`$env:TEMP\unlockai.zip`, `$env:TEMP\unlockai-x`), then retry Step 2 method C.
+
+**`cd $HOME\Downloads\unlockai-social-media` says "path not found"**
+→ The download landed somewhere else, or the folder name differs. List `$HOME\Downloads` and look
+for the real folder name (an archive download may leave `unlockai-social-media-master`). `cd` into
+whatever actually exists, or re-run the Move-Item step to rename it.
+
+**Antivirus / SmartScreen warning on the installer** → this is the Windows install of Claude Code
+itself, from the official `claude.ai` script. Allow it / "More info → Run anyway". If the machine
+is locked down, the student needs their own admin password (that's on the pre-work checklist).
+
+---
+
 ## After relaunch (skills / workspace)
 
 **Skills don't show after relaunch (`/brand` isn't there)**
@@ -72,18 +95,41 @@ Then try `/caption`, `/ideas`, `/calendar`, `/autoreply` again.
 
 ## Comment-to-DM automation (the `/autoreply` goal)
 
-**`/autoreply` gives me the campaign text — now where do I actually turn the automation on?**
-→ The skill saves a file in `output/` with the keyword, the public reply, and the DM text, plus
-install steps at the bottom. Set it up in **Meta Business Suite → Inbox → Automations** (look for
-a "Comment → Message" / reply-to-comment automation) and paste in the text from that file.
+**Full picture + a click-through visual guide live in [META-SETUP.md](META-SETUP.md).** Open the
+visual walkthrough with `open guide/meta-setup.html` (macOS) / `start guide\meta-setup.html`
+(Windows). The most common blockers, and how to clear them:
 
-**Business Suite doesn't show a comment→DM automation** (features differ by account/country)
-→ Use **ManyChat** (free): connect your Instagram, pick the "Comment Growth Tool" template, and
-paste the same keyword / reply / DM text. The `/autoreply` file already explains this fallback.
+**Which path do I even use?**
+→ Two options. **No-code (recommended for most):** Meta Business Suite → Inbox → **Automations**,
+or **ManyChat** (free "Comment Growth Tool" template) — paste the keyword/reply/DM from your
+`output/campaign-*.md`. **API path (self-hosted, advanced):** create your own Meta app, get an
+access token — that's the visual guide's subject. Not sure? Use no-code; a helper can move you to
+the API path if you want it.
+
+**(API path) I created the app but `GET /{media}/comments` returns 0 even though the post has comments**
+→ The app is still in **Development mode**. In Development, only role-holders' comments are
+visible. Fix: **Publish** the app (left sidebar → Publish). This is the #1 API blocker.
+
+**(API path) Publish is blocked — it wants a Privacy Policy URL**
+→ App settings → Basic → **Privacy policy URL** must be a real reachable URL (Terms + Data-deletion
+can be placeholders). See META-SETUP.md for a 2-minute hosted policy.
+
+**(API path) "Do I need App Review / Advanced Access?" panic**
+→ For your **own** account: **No.** Instagram-Login + "serves a business I own" = Standard Access,
+no review. **Do NOT click "Become a Tech Provider"** — that's the review path you don't need.
+
+**(API path) The DM sends look like they failed but people got the message (and some got 5 copies)**
+→ **Never retry a private-reply send.** That endpoint can deliver the DM while returning an error;
+retrying re-sends. Send exactly once, mark the comment done, move on — no retry loop, ever.
+
+**(API path) My token stopped working after ~2 months**
+→ Long-lived tokens last ~60 days. Refresh via `graph.instagram.com/refresh_access_token` before
+expiry. (Renaming your IG username does NOT break the token — it binds to the numeric id.)
 
 **Test it the right way** → have the person next to you comment the keyword under your post from
-*their* account. You should get both a public reply under the comment **and** an auto-DM. Testing
-from your own account often won't trigger it.
+*their* account. You should get both a public reply and an auto-DM. You **cannot** self-test from
+your own account (own comments are skipped and you can't DM yourself). The DM lands in the
+recipient's **Requests** folder if they don't follow you.
 
 ---
 

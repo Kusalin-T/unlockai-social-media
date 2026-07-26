@@ -43,6 +43,7 @@ Build a **Comment-to-DM** campaign: someone comments a set keyword → the bot r
 4. Append the **setup steps** at the end of the file (written for a non-technical person):
    - **Meta Business Suite** → Inbox → **Automations** → find a "reply when someone comments / Comment → Message" automation → enter the keyword, public reply, and DM text from this file.
    - If Business Suite doesn't show the full menu (features differ by account/country) → free alternative: **ManyChat** (connect IG, use the "Comment Growth Tool" template) — paste the same set of messages.
+   - Then guide the actual connection using **[META-SETUP.md](../../../META-SETUP.md)** — it starts with the no-code vs API-key decision (default: no-code). If the student wants the **API path** (their own Meta app + access token), **open the visual guide for them**: `open guide/meta-setup.html` (macOS) / `start guide\meta-setup.html` (Windows), and walk it screen-by-screen. Honor the Path-B safety rules (never retry a DM send; one reply per comment; skip own comments).
 5. Reinforce two things:
    - One keyword per campaign/post — easy to measure, no collisions.
    - The first week, check the real DMs daily: how people reply, bring it back to the AI so it can sharpen the copy.
