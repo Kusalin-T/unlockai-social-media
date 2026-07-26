@@ -105,10 +105,11 @@ cd $HOME\Downloads\unlockai-social-media
 claude
 ```
 
-Then tell them (in Thai): once Claude reopens inside this folder, type **`/brand`** as the first
-command — the AI interviews them and builds their brand file, and every skill then writes in
-their brand voice automatically. Today's goal is **`/autoreply`** = a "comment KEYWORD → get it by
-DM" campaign.
+Then tell them (in Thai): once Claude reopens inside this folder, type **`/`** and confirm the five
+workshop skills appear. **In class, stop there and wait for the instructor's next gate** so the room
+stays together. If they are doing the kit on their own, start with **`/brand`**; it interviews them
+and builds the brand file used by the other content skills. Today's workshop goal is
+**`/autoreply`** = a "comment KEYWORD → get it by DM" campaign.
 
 ## Step 5 — Confirm success
 

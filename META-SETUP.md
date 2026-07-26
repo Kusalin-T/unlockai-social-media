@@ -13,11 +13,14 @@ and give the plain next step. If a step needs a human, tell them to raise their 
 
 ## The workshop path: the API (get your own key)
 
-Today's main event is **Path A below** — the student creates their own Meta app and gets their
-own **App ID + App Secret + access token**. It's the powerful version, and it's the breakage-prone
-one, so go slowly, one screen at a time, and lean on the visual guide. **If a student gets stuck
-or you're running out of time, fall back to the no-code path at the bottom** — a working no-code
-bot beats a half-finished API one.
+Today's main event is **Path A below** — the student creates their own Meta app and gets one
+**Instagram access token**. It's the powerful version, and it's the breakage-prone one, so go
+slowly, one screen at a time, and lean on the visual guide. **If a student gets stuck or you're
+running out of time, fall back to the no-code path at the bottom** — a working no-code bot beats
+a half-finished API one.
+
+> **Do not ask the student for App Secret.** The workshop bot does not use it. Treat it like a
+> password and leave it hidden in Meta.
 
 ---
 
@@ -26,27 +29,40 @@ bot beats a half-finished API one.
 Follow the **visual guide** (`guide/meta-setup.html`) screen-by-screen — open it now. The written
 version:
 
-1. **Create the app** — `developers.facebook.com` → **Create App** → **Other** → **Business**.
-2. **Don't click "Become a Tech Provider."** That starts App Review, which own-account use does
-   **not** need.
-3. **Add Instagram** → **API setup with Instagram login** (this path needs **no Facebook Page**).
-4. **Copy your secret key** — App settings → Basic → **App ID** + **App Secret** (treat the secret
-   like a password).
-5. **Add your Instagram as a Tester** → accept in the IG app (Settings → Apps and websites → Tester
-   invites). Your IG must be a **Professional** account (Business or Creator).
-6. **Generate your access token** (the "API key"). It lasts ~60 days; refresh before expiry via
-   `graph.instagram.com/refresh_access_token`.
-7. **Privacy Policy URL** — App settings → Basic → a real reachable URL (needed to publish). No
-   policy? The assistant can deploy a 2-minute static one.
-8. **Publish** the app (left sidebar → Publish). **Critical:** while unpublished, the API sees
-   **zero** comments from normal followers — this is the #1 "why isn't it working".
-9. **Hand the three values to the assistant** — it stores `App ID`, `App Secret`, `Access token`
-   in a private `.env` on the machine; they never leave the computer.
-10. **Run the bot** — `bot/run.py` does the actual comment→DM with that token (see
+1. **Create the app** — `developers.facebook.com` → **Create App** → choose
+   **Manage messaging & content on Instagram**. Fill in the app details and connect the student's
+   own business portfolio if Meta asks.
+2. **Don't click "Become a Tech Provider."** That starts verification/App Review for serving
+   accounts owned by other businesses. The workshop uses the student's own account with Standard
+   Access.
+3. **Open the Instagram use case** → **API setup with Instagram login** → add all required
+   permissions (`instagram_business_basic`, `instagram_business_manage_comments`, and
+   `instagram_business_manage_messages`).
+4. **Add the Instagram account as a tester** if Meta asks → accept the tester invite inside
+   Instagram → return to Meta and click **Add account**. The Instagram account must be
+   **Professional** (Business or Creator).
+5. **Generate the access token** (the workshop's "API key") and copy it once. It lasts roughly
+   60 days; the bot refreshes it when Meta allows. Never photograph or paste the raw token into
+   a public chat, slide, or repository.
+6. **Hand only the access token to the assistant** — it stores `IG_ACCESS_TOKEN` in a private,
+   gitignored `.env` file on the laptop. The bot discovers and saves `IG_USER_ID` automatically.
+7. **Run the bot** — `bot/run.py` does the actual comment→DM with that token (see
    [bot/README.md](bot/README.md)). Always **dry-run first** (`python bot/run.py`), then
    `python bot/run.py --live` once a real comment from a second account exists. Windows: `py bot\run.py`.
 
-### Safety rules the assistant must honor (Path B)
+### About Publish, Privacy Policy, and App Review
+
+The workshop bot **polls an Instagram account the student owns**. It does not use webhooks and it
+does not serve accounts owned by other businesses. That is the Standard Access case.
+
+- Meta's dashboard says **Published state is required for webhooks**. This bot does not configure
+  webhooks.
+- Do not send students into **Become a Tech Provider** or App Review during the workshop.
+- If Meta explicitly blocks token generation or the own-account dry-run behind a Publish
+  requirement, raise a hand. A helper can add the required app details and decide whether to
+  publish. Do not improvise a fake Privacy Policy URL.
+
+### Safety rules the assistant must honor (Path A)
 - **Never retry a private-reply DM send.** The endpoint can deliver the DM *while returning an
   error* — retrying re-sends and spams the person. One comment → send exactly once → mark done.
 - **One private reply per comment**, text ≤ 1000 chars, within 7 days of the comment. Long lead

@@ -16,9 +16,10 @@ adds `claude` to PATH only for new terminals.
 - Windows PowerShell: `irm https://claude.ai/install.ps1 | iex`
 
 **Windows blocks the install script (execution policy / "running scripts is disabled")**
-→ Open PowerShell as **Administrator** (right-click → Run as administrator) and run the install
-line again. If it still refuses:
-`Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass` then re-run `irm ... | iex`.
+→ In the same PowerShell window run:
+`Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force`
+then re-run `irm https://claude.ai/install.ps1 | iex`. This changes policy only for the current
+PowerShell process; administrator mode is not required.
 
 **Login link won't open / login fails**
 → Copy the login URL and open it in **Google Chrome** instead of the default browser. Finish
@@ -107,16 +108,23 @@ Tool" template) — paste the keyword/reply/DM from your `output/campaign-*.md`.
 bot beats a half-finished API one.
 
 **(API path) I created the app but `GET /{media}/comments` returns 0 even though the post has comments**
-→ The app is still in **Development mode**. In Development, only role-holders' comments are
-visible. Fix: **Publish** the app (left sidebar → Publish). This is the #1 API blocker.
-
-**(API path) Publish is blocked — it wants a Privacy Policy URL**
-→ App settings → Basic → **Privacy policy URL** must be a real reachable URL (Terms + Data-deletion
-can be placeholders). See META-SETUP.md for a 2-minute hosted policy.
+→ Check the simple own-account path first: the Instagram account is Professional, it was added as
+an Instagram Tester/connected account, the token belongs to that same account, and the token has
+`instagram_business_manage_comments`. The workshop bot polls; it does not need a webhook.
 
 **(API path) "Do I need App Review / Advanced Access?" panic**
 → For your **own** account: **No.** Instagram-Login + "serves a business I own" = Standard Access,
 no review. **Do NOT click "Become a Tech Provider"** — that's the review path you don't need.
+
+**(API path) Meta asks for App ID or App Secret**
+→ Leave the App Secret hidden. The workshop bot uses only `IG_ACCESS_TOKEN`; it discovers
+`IG_USER_ID` automatically. Never paste App Secret into Claude, a slide, or a repository.
+
+**(API path) Meta says Publish is required**
+→ The dashboard explicitly requires Published state for **webhooks**; this workshop bot does not
+use webhooks. If Meta blocks token generation or the own-account dry-run anyway, raise a hand so
+the instructor can inspect the exact requirement. Do not click "Become a Tech Provider" and do
+not invent a fake Privacy Policy URL.
 
 **(API path) The DM sends look like they failed but people got the message (and some got 5 copies)**
 → **Never retry a private-reply send.** That endpoint can deliver the DM while returning an error;
@@ -137,12 +145,15 @@ recipient's **Requests** folder if they don't follow you.
 
 **`python: command not found` / `'python' is not recognized` (Windows)**
 → Try `py bot\run.py` instead of `python`. Still nothing? Install Python from python.org (tick
-**"Add Python to PATH"** during install), open a new terminal, retry. (Macs already have `python3`
-— use `python3 bot/run.py`.)
+**"Add Python to PATH"** during install), open a new terminal, retry.
 
-**`IG_ACCESS_TOKEN and/or IG_USER_ID missing from .env`**
-→ Finish the visual guide and let the assistant save your keys, or paste them into the repo's
-`.env` file as `IG_ACCESS_TOKEN=...` and `IG_USER_ID=...` (the numeric id).
+**`python3: command not found` (macOS)**
+→ Check with `python3 --version`. If it is missing, install the current Python 3 from python.org,
+open a new Terminal, then run `python3 bot/run.py`. Do not assume every Mac includes Python.
+
+**`IG_ACCESS_TOKEN is missing from .env`**
+→ Finish the visual guide and let the assistant save the token, or paste it into the repo's
+`.env` file as `IG_ACCESS_TOKEN=...`. The bot discovers and saves `IG_USER_ID` automatically.
 
 **`No campaign file` / missing field**
 → Run `/autoreply` (the assistant writes `bot/campaign.json`), or copy `bot/campaign.example.json`
@@ -155,8 +166,8 @@ account** comment the exact keyword, then run again. (Already-answered comments 
 **"Refusing to send live — unfilled `<<placeholder>>`"** → your `dm_text`/`public_reply` still has
 a `<<...>>` token. Put the real link/text in `bot/campaign.json`, then re-run.
 
-**Comments come back empty even though the post has comments** → the Meta app isn't **Published**
-(see the Meta section above). Publish it.
+**Comments come back empty even though the post has comments** → check the connected/tester
+account and token permissions in the Meta section above.
 
 ---
 

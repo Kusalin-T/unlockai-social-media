@@ -1,27 +1,30 @@
 # Screenshots for the Instagram API visual guide
 
-Drop your screenshots into **this folder** with the exact filenames below. The guide
-(`guide/meta-setup.html`) picks them up automatically — until a file exists, that step shows a
-labeled placeholder, so the guide already works and looks clean without them.
+The guide (`guide/meta-setup.html`) loads the files in this folder automatically. The current
+screens were recovered from the instructor's 26 July 2026 Meta walkthrough.
 
-**Format:** PNG (or JPG, but keep the `.png` name), landscape, roughly 16:10. Crop to the relevant
-panel. **Blur any secret values** (App Secret, access token) before saving.
+This is a **public repository**:
 
-| File | What to capture |
-|---|---|
-| `01-create-app.png` | developers.facebook.com — the **Create App** button (top right) |
-| `02-usecase.png` | The use-case picker: **Other** selected → app type **Business** |
-| `03-dashboard-no-techprovider.png` | The app dashboard — point/circle at **"Become a Tech Provider"** with a "don't click" mark |
-| `04-add-instagram.png` | Products list → **Instagram → Set up** → the **API setup with Instagram login** option |
-| `05-app-id-secret.png` | App settings → Basic → **App ID** + **App Secret** (blur the secret) |
-| `06-add-tester.png` | Roles → add **Instagram tester**; and the **Accept** screen in the IG app (Settings → Apps and websites → Tester invites) |
-| `07-generate-token.png` | The **Generate access token** button + the token result (blur the token) |
-| `08-privacy-url.png` | App settings → Basic → the **Privacy Policy URL** field filled in |
-| `09-publish.png` | Left sidebar → **Publish** (the `Unpublished` badge before/after) |
-| `10-paste-keys.png` | *(optional)* Claude/terminal asking for the keys, values pasted (blurred) |
+- Never add a screenshot containing a raw access token or App Secret.
+- Remove personal email addresses, private account details, and business data. App IDs are public,
+  but students do not need to copy them for this workshop.
+- A missing image is safe: the guide shows a labeled placeholder instead.
 
-Steps 0 (cover) and the final "test it" step need no screenshot.
+| File | Status | What it shows |
+|---|---|---|
+| `01-usecase.png` | recovered | Current Meta app use-case picker |
+| `02-tech-provider-trap.png` | recovered | The Tech Provider confirmation students should cancel |
+| `03-instagram-api-setup.png` | recovered | Instagram Login setup + the three required permissions |
+| `04-add-account.png` | recovered | Tester reminder and **Add account** button |
+| token result | intentionally not captured | The guide uses a privacy-safe illustration instead |
+| `06-optional-publish.png` | recovered | Publish screen for instructor troubleshooting only |
 
-## How to hand them to me
-Easiest: put all the PNGs in a folder and tell me the path — I'll copy them in with the right
-names. Or AirDrop them to Downloads and point me there. If a filename doesn't match, I'll rename.
+## Why there is no token screenshot
+
+The token is revealed once and must stay private, so the public guide deliberately does not load a
+token-result image. It uses a privacy-safe panel that tells students to copy the value directly.
+Do not capture or expose App Secret either. The workshop bot needs only `IG_ACCESS_TOKEN` and
+discovers `IG_USER_ID` automatically.
+
+The full 17-image source set is stored privately outside this public repository, together with a
+manifest and contact sheet.

@@ -6,7 +6,7 @@ sends each commenter a public reply + a private-reply DM with your link. Uses
 the access token you generated in the visual guide. Standard library only.
 
 Reads:
-  ../.env          IG_ACCESS_TOKEN, IG_USER_ID  (the assistant saves these for you)
+  ../.env          IG_ACCESS_TOKEN (the assistant saves this for you)
   campaign.json    your keyword / reply / DM copy + the post URL
 
 Run it:
@@ -65,6 +65,27 @@ def load_env(path: Path) -> dict:
         k, _, v = line.partition("=")
         env[k.strip()] = v.strip().strip('"').strip("'")
     return env
+
+
+def save_env_value(path: Path, key: str, value: str) -> None:
+    """Set one value without replacing the student's other local settings."""
+    lines = path.read_text().splitlines() if path.exists() else []
+    prefix = f"{key}="
+    for i, line in enumerate(lines):
+        if line.startswith(prefix):
+            lines[i] = f"{key}={value}"
+            break
+    else:
+        lines.append(f"{key}={value}")
+    path.write_text("\n".join(lines) + "\n")
+    try:
+        path.chmod(0o600)
+    except OSError:
+        pass
+    try:
+        path.chmod(0o600)
+    except OSError:
+        pass
 
 
 # ── config ──────────────────────────────────────────────────────────────
@@ -159,10 +180,10 @@ def main() -> None:
     env = load_env(ENV_PATH)
     token = env.get("IG_ACCESS_TOKEN")
     user_id = env.get("IG_USER_ID")
-    if not token or not user_id:
-        sys.exit("IG_ACCESS_TOKEN and/or IG_USER_ID missing from .env.\n"
-                 "Finish the visual guide (guide/meta-setup.html) and let the "
-                 "assistant save your keys, then run this again.")
+    if not token:
+        sys.exit("IG_ACCESS_TOKEN is missing from .env.\n"
+                 "Finish the visual guide (guide/meta-setup.html), then let the "
+                 "assistant save your access token and run this again.")
 
     campaign = load_campaign(CAMPAIGN_PATH)
 
@@ -173,14 +194,23 @@ def main() -> None:
                 sys.exit("Refusing to send live — your copy still has an unfilled "
                          "<<placeholder>>. Fill in the real link/text in campaign.json first.")
 
-    client = IGGraphClient(access_token=token, user_id=user_id, env_path=ENV_PATH)
+    # The token can identify its own account. Students should not have to hunt
+    # through Meta's UI for a second numeric value.
+    client = IGGraphClient(access_token=token, user_id=user_id or "me", env_path=ENV_PATH)
 
     try:
         profile = client.get_profile()
     except InstagramGraphError as e:
         sys.exit(f"Couldn't reach your account: {e}\n"
-                 "If it mentions the token, generate a fresh one in the guide. "
-                 "If comments come back empty later, make sure your app is PUBLISHED.")
+                 "If it mentions the token, generate a fresh one in the guide.")
+    if not user_id:
+        user_id = str(profile.get("user_id") or profile.get("id") or "")
+        if not user_id:
+            sys.exit("The token worked, but Instagram did not return an account ID. "
+                     "Ask a workshop helper to check the token permissions.")
+        client.user_id = user_id
+        save_env_value(ENV_PATH, "IG_USER_ID", user_id)
+        print("Saved IG_USER_ID automatically.")
     own_username = (profile.get("username") or "").lower()
     mode = "LIVE" if args.live else "DRY-RUN"
     print(f"Comment->DM bot [{mode}] — @{own_username} ({profile.get('account_type')})")

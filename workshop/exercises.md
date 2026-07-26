@@ -7,26 +7,26 @@
 - [ ] Reopen `claude` inside the `Downloads/unlockai-social-media` folder, type `/`, and see all 5 commands
 - [ ] Say one line to the AI and get a reply
 
-## ✅ Block 2 — your brand
-- [ ] Run `/brand`, answer the interview to the end
-- [ ] Open `brand/brand.md` — tweak it until it feels right
-- [ ] Run `/caption` for your first post — pick 1 of 3
-
-## ✅ Block 3 — get your Instagram key (Meta app)
+## ✅ Block 2 — get your Instagram key (Meta app)
 The main event. Follow the **visual guide** — the assistant opens it, or run `open guide/meta-setup.html` (Mac) / `start guide\meta-setup.html` (Windows).
-- [ ] Create your own Meta app (developers.facebook.com) — **don't** click "Become a Tech Provider"
-- [ ] Add Instagram → "API setup with Instagram login"
-- [ ] Copy your **App ID** + **App Secret**, generate your **access token**
-- [ ] Add a Privacy Policy URL → **Publish** the app (this is what makes it work on real followers)
+- [ ] Create your own Meta app → choose **Manage messaging & content on Instagram**
+- [ ] **Don't** click "Become a Tech Provider"
+- [ ] Add the required Instagram permissions → add your professional Instagram account
+- [ ] Generate and copy your **access token** — do not reveal the App Secret; this bot does not need it
 - [ ] Stuck on a screen? Raise your hand — a helper will jump in
 > Short on time or blocked? The no-code fallback (Business Suite / ManyChat) is at the bottom of META-SETUP.md.
 
-## ✅ Block 4 — Comment-to-DM, live
+## ✅ Block 3 — Comment-to-DM, live
 - [ ] Run `/autoreply` → design a "comment <KEYWORD> to get <item>" campaign → get `output/campaign-<keyword>.md`
-- [ ] Give your keys to the assistant → it saves them to `.env` and writes `bot/campaign.json`
+- [ ] Give the access token to the assistant → it saves it to `.env` and writes `bot/campaign.json`
 - [ ] **Dry-run** the bot: `python bot/run.py` (Windows: `py bot\run.py`) — shows what it would send, sends nothing
 - [ ] Have the person next to you comment your keyword from **their** account (you can't self-test from your own)
 - [ ] **Go live**: `python bot/run.py --live` → they get a public reply + a DM 🎉
+
+## ✅ Block 4 — explore the rest of your toolkit
+- [ ] Run `/brand`, answer the interview, and open `brand/brand.md`
+- [ ] Pick one: `/caption`, `/ideas`, or `/calendar`
+- [ ] Ask the agent to improve today's campaign using the new brand file
 
 ## 🏠 Homework (if you don't finish in class, keep going at home)
 - [ ] `/ideas` for a topic you want to push this month

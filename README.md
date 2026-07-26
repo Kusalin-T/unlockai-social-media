@@ -26,7 +26,11 @@ Once `claude` opens, go to step 2.
 Set up my UnlockAI: Social Media workspace. Read and follow every step in https://raw.githubusercontent.com/Kusalin-T/unlockai-social-media/master/BOOTSTRAP.md — if anything breaks, read DEBUG.md in the same repo. Reply to me in Thai.
 ```
 
-The AI downloads the repo, verifies the files, then tells you to reopen `claude` inside the folder. Then type your first command:
+The AI downloads the repo, verifies the files, then tells you to reopen `claude` inside the folder.
+In the workshop, type `/` to confirm the five commands appear, then wait for the next gate so the
+room stays together.
+
+Working through the kit on your own? Start with:
 
 ```
 /brand

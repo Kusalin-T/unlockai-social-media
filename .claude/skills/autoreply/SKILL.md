@@ -8,7 +8,10 @@ Build a **Comment-to-DM** campaign: someone comments a set keyword → the bot r
 
 ## Steps
 
-1. Read `brand/brand.md` first (if missing → invite them to run `/brand`).
+1. If `brand/brand.md` exists, read it first. If it is missing, **do not block the workshop**:
+   say you will make a fast first version, then ask for a one-line description of the
+   business/creator, the audience, and the desired tone. Never invent brand facts. Recommend
+   `/brand` after the campaign so later work can match their voice more precisely.
 2. Ask what you need (short, one round):
    - **What gets sent in the DM** (a link? a file? a discount code? product details?)
    - What the post/clip is about
@@ -43,7 +46,10 @@ Build a **Comment-to-DM** campaign: someone comments a set keyword → the bot r
 4. Append the **setup steps** at the end of the file (written for a non-technical person). The
    workshop's main path is the **API path** — the student gets their own Instagram key:
    - **Open the visual guide for them**: `open guide/meta-setup.html` (macOS) / `start guide\meta-setup.html` (Windows), and walk it screen-by-screen. Full written version + safety rules: **[META-SETUP.md](../../../META-SETUP.md)**.
-   - It ends with the student holding **App ID + App Secret + access token**. Save `IG_ACCESS_TOKEN` and `IG_USER_ID` into the repo-root `.env` (it's gitignored). `IG_USER_ID` = the numeric id from the API setup page / `GET me?fields=user_id`.
+   - It ends with the student holding **one Instagram access token**. Never ask for or expose
+     App Secret; this bot does not use it. Save only `IG_ACCESS_TOKEN` into the repo-root `.env`
+     (it's gitignored). On first run the bot calls `GET me?fields=user_id` and saves
+     `IG_USER_ID` automatically.
    - **Then run the bot** (`bot/run.py`) — it does the actual comment→DM using their token:
      1. Write this campaign into `bot/campaign.json` (fields: `post_url`, `keywords`, `match`, `public_reply`, `dm_text`, `once_per_user`, `lang`). Template: `bot/campaign.example.json`.
      2. **Dry-run first**: `python bot/run.py` (Windows: `py bot\run.py`) — shows what it would send, sends nothing. Check it looks right.

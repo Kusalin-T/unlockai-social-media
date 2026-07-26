@@ -190,3 +190,7 @@ def _update_env(env_path, key, value):
     else:
         lines.append(f"{key}={value}")
     env_path.write_text("\n".join(lines) + "\n")
+    try:
+        env_path.chmod(0o600)
+    except OSError:
+        pass

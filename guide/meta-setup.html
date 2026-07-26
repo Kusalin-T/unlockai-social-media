@@ -128,182 +128,140 @@
   <!-- 0 · COVER -->
   <section class="frame">
     <div class="kicker"><span class="mark">❯</span> visual guide · click through with → or the button</div>
-    <h1>Get your Instagram <span class="o">key</span>,<br>step by step</h1>
-    <div class="th" lang="th">ค่อย ๆ ทำทีละขั้น เดี๋ยวได้ API key ของ Instagram มาแน่นอน — มีทีมงานช่วยตรงนี้</div>
+    <h1>Get your Instagram <span class="o">token</span>,<br>step by step</h1>
+    <div class="th" lang="th">ค่อย ๆ ทำทีละขั้น เดี๋ยวได้ access token ของ Instagram มาแน่นอน — มีทีมงานช่วยตรงนี้</div>
     <div class="cover-you-get">
-      <div class="row"><span class="n">→</span><span>Create your own Meta app (free)</span></div>
-      <div class="row"><span class="n">→</span><span>Copy your <b>App ID</b> + <b>App Secret</b> (the "secret key")</span></div>
-      <div class="row"><span class="n">→</span><span>Generate your <b>access token</b> (the "API key")</span></div>
-      <div class="row"><span class="n">→</span><span>Publish the app so it works on real followers</span></div>
+      <div class="row"><span class="n">→</span><span>Create a Meta app for <b>Instagram messaging + comments</b></span></div>
+      <div class="row"><span class="n">→</span><span>Connect the Instagram account you own</span></div>
+      <div class="row"><span class="n">→</span><span>Generate one <b>access token</b> for the workshop bot</span></div>
+      <div class="row"><span class="n">→</span><span>Run a dry test before sending anything</span></div>
     </div>
+    <div class="pill warn"><span class="ico">▲</span><span>Keep <b>App Secret hidden</b>. This workshop bot does not need it. <span class="th" lang="th">ห้ามส่ง App Secret ให้ใคร</span></span></div>
     <div class="pill info"><span class="ico">◆</span><span>Take it slow — one screen per step. Stuck on any screen? <b>Raise your hand</b>, a helper will jump in. <span class="th" lang="th">ติดตรงไหนยกมือได้เลย</span></span></div>
   </section>
 
-  <!-- 1 · CREATE APP -->
+  <!-- 1 · CREATE APP + USE CASE -->
   <section class="frame">
-    <div class="kicker"><span class="mark">❯</span> step 1 · create the app</div>
-    <h2>Go to the Meta developer site and create an app</h2>
-    <div class="th" lang="th">เข้าเว็บนักพัฒนาของ Meta แล้วสร้างแอปใหม่</div>
+    <div class="kicker"><span class="mark">❯</span> step 1 · create the right app</div>
+    <h2>Choose <span class="o">Manage messaging &amp; content on Instagram</span></h2>
+    <div class="th" lang="th">สร้างแอปใหม่ แล้วเลือก Manage messaging &amp; content on Instagram</div>
     <div class="step">
-      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">developers.facebook.com — the "Create App" button (top right)</span><span class="file">screens/01-create-app.png</span></div><img src="screens/01-create-app.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">Current Meta use-case picker</span><span class="file">screens/01-usecase.png</span></div><img src="screens/01-usecase.png" alt="" onerror="this.style.display='none'"></div>
       <div class="guide">
         <div class="num">DO THIS</div>
-        <div class="do">Open <code>developers.facebook.com</code> → log in with your Facebook account → click <b>Create App</b>.</div>
+        <div class="do"><code>developers.facebook.com/apps</code> → <b>Create App</b> → fill in the app details → choose <b>Manage messaging &amp; content on Instagram</b>.</div>
         <ul>
-          <li>Use the same login that your Instagram is connected to.</li>
-          <li>If it asks you to register as a developer first, accept and continue — it's free.</li>
+          <li>Use the Facebook/Meta login connected to your Instagram.</li>
+          <li>If Meta asks for a business portfolio, choose the one that owns your Instagram.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- 2 · USE CASE -->
+  <!-- 2 · DON'T BECOME TECH PROVIDER -->
   <section class="frame">
-    <div class="kicker"><span class="mark">❯</span> step 2 · choose the use case</div>
-    <h2>Pick "Other" → then the <span class="o">Business</span> type</h2>
-    <div class="th" lang="th">เลือก Other แล้วเลือกประเภท Business</div>
+    <div class="kicker"><span class="mark">❯</span> step 2 · the one trap to avoid</div>
+    <h2><span class="o">Don't</span> click "Become a Tech Provider"</h2>
+    <div class="th" lang="th">อย่ากดปุ่ม Become a Tech Provider เด็ดขาด</div>
     <div class="step">
-      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">The use-case picker — choose "Other", then app type "Business"</span><span class="file">screens/02-usecase.png</span></div><img src="screens/02-usecase.png" alt="" onerror="this.style.display='none'"></div>
-      <div class="guide">
-        <div class="num">DO THIS</div>
-        <div class="do">Choose <b>Other</b> at the bottom → <b>Next</b> → app type <b>Business</b> → <b>Next</b>.</div>
-        <ul>
-          <li>Give it any name (e.g. "my-comment-bot"). Only you see it.</li>
-          <li>Pick your business account if it asks; otherwise leave it as "No business portfolio".</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3 · DON'T become tech provider -->
-  <section class="frame">
-    <div class="kicker"><span class="mark">❯</span> step 3 · the one trap to avoid</div>
-    <h2>You land on the dashboard. <span class="o">Don't</span> click "Become a Tech Provider"</h2>
-    <div class="th" lang="th">พอเข้า dashboard แล้ว อย่ากดปุ่ม "Become a Tech Provider" เด็ดขาด</div>
-    <div class="step">
-      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">The app dashboard — circle/point at "Become a Tech Provider" with a red "don't click" mark</span><span class="file">screens/03-dashboard-no-techprovider.png</span></div><img src="screens/03-dashboard-no-techprovider.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">The Tech Provider confirmation you should cancel</span><span class="file">screens/02-tech-provider-trap.png</span></div><img src="screens/02-tech-provider-trap.png" alt="" onerror="this.style.display='none'"></div>
       <div class="guide">
         <div class="num">WHY IT MATTERS</div>
-        <div class="do">"Become a Tech Provider" starts the App Review process — which you <b>do not need</b> for your own account.</div>
-        <div class="pill warn"><span class="ico">▲</span><span>For your own Instagram, <b>no App Review is required</b>. Skip that button and keep going.</span></div>
+        <div class="do">That path is for serving accounts owned by <b>other businesses</b>. It starts verification and App Review.</div>
+        <div class="pill warn"><span class="ico">▲</span><span>This workshop connects only the Instagram account <b>you own</b> with Standard Access. Close this dialog and keep going.</span></div>
       </div>
     </div>
   </section>
 
-  <!-- 4 · add Instagram product -->
+  <!-- 3 · CONFIGURE INSTAGRAM API -->
   <section class="frame">
-    <div class="kicker"><span class="mark">❯</span> step 4 · add Instagram</div>
-    <h2>Add the <b>Instagram</b> product → "API setup with Instagram login"</h2>
-    <div class="th" lang="th">เพิ่มผลิตภัณฑ์ Instagram แล้วเลือก "API setup with Instagram login"</div>
+    <div class="kicker"><span class="mark">❯</span> step 3 · configure Instagram</div>
+    <h2>Open <b>API setup with Instagram login</b></h2>
+    <div class="th" lang="th">เปิด API setup with Instagram login แล้วเพิ่ม permissions ให้ครบ</div>
     <div class="step">
-      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">Products list → Instagram "Set up" → the "API setup with Instagram login" option</span><span class="file">screens/04-add-instagram.png</span></div><img src="screens/04-add-instagram.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">Instagram API setup and required permissions</span><span class="file">screens/03-instagram-api-setup.png</span></div><img src="screens/03-instagram-api-setup.png" alt="" onerror="this.style.display='none'"></div>
       <div class="guide">
         <div class="num">DO THIS</div>
-        <div class="do">In the products list, find <b>Instagram</b> → <b>Set up</b> → choose <b>API setup with Instagram login</b>.</div>
-        <div class="pill info"><span class="ico">◆</span><span>This path needs <b>no Facebook Page</b> — it works straight off your Instagram. <span class="th" lang="th">ไม่ต้องมีเพจ Facebook</span></span></div>
+        <div class="do">Use cases → Instagram API → <b>API setup with Instagram login</b> → click <b>Add all required permissions</b>.</div>
+        <ul>
+          <li><code>instagram_business_basic</code></li>
+          <li><code>instagram_business_manage_comments</code></li>
+          <li><code>instagram_business_manage_messages</code></li>
+        </ul>
+        <div class="pill info"><span class="ico">◆</span><span>The App ID shown here is not the workshop key. Leave <b>App Secret hidden</b>.</span></div>
       </div>
     </div>
   </section>
 
-  <!-- 5 · App ID + Secret -->
+  <!-- 4 · ADD TESTER + ACCOUNT -->
   <section class="frame">
-    <div class="kicker"><span class="mark">❯</span> step 5 · your secret key</div>
-    <h2>Copy your <b>App ID</b> and <b>App Secret</b></h2>
-    <div class="th" lang="th">คัดลอก App ID และ App Secret เก็บไว้ — นี่คือ "secret key"</div>
+    <div class="kicker"><span class="mark">❯</span> step 4 · connect your Instagram</div>
+    <h2>Add the tester role, then click <span class="o">Add account</span></h2>
+    <div class="th" lang="th">เพิ่มบัญชี Instagram เป็น tester แล้วกลับมากด Add account</div>
     <div class="step">
-      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">App settings → Basic → App ID and App Secret (blur the secret value in the shot)</span><span class="file">screens/05-app-id-secret.png</span></div><img src="screens/05-app-id-secret.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">Generate access tokens → Add account</span><span class="file">screens/04-add-account.png</span></div><img src="screens/04-add-account.png" alt="" onerror="this.style.display='none'"></div>
       <div class="guide">
         <div class="num">DO THIS</div>
-        <div class="do">Left sidebar → <b>App settings → Basic</b>. Copy the <b>App ID</b> and click <b>Show</b> on <b>App Secret</b>.</div>
-        <div class="keychip"><span class="k">App ID</span><span class="v">1234…</span></div>
-        <div class="keychip"><span class="k">App Secret</span><span class="v">abc…</span></div>
-        <div class="pill warn"><span class="ico">▲</span><span>Treat the <b>App Secret like a password</b> — paste it only where the assistant tells you, never in a public post or chat.</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6 · add tester -->
-  <section class="frame">
-    <div class="kicker"><span class="mark">❯</span> step 6 · connect your Instagram</div>
-    <h2>Add your Instagram as a tester, and accept in the app</h2>
-    <div class="th" lang="th">เพิ่มบัญชี Instagram ของคุณเป็น tester แล้วกดยอมรับในแอป Instagram</div>
-    <div class="step">
-      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">Roles / Instagram testers → add your IG username; + the "accept" screen inside the IG app (Settings → Apps and websites → Tester invites)</span><span class="file">screens/06-add-tester.png</span></div><img src="screens/06-add-tester.png" alt="" onerror="this.style.display='none'"></div>
-      <div class="guide">
-        <div class="num">DO THIS</div>
-        <div class="do">Add your IG handle as an <b>Instagram Tester</b>, then open Instagram on your phone → <b>Settings → Apps and websites → Tester invites</b> → <b>Accept</b>.</div>
+        <div class="do">App roles → add your IG account as an <b>Instagram Tester</b> if Meta asks. Accept the invite inside Instagram, then return here and click <b>Add account</b>.</div>
         <ul>
           <li>Your Instagram must be a <b>Professional</b> account (Business or Creator).</li>
+          <li>Approve only the account you own and will use in the workshop.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- 7 · token -->
+  <!-- 5 · TOKEN -->
   <section class="frame">
-    <div class="kicker"><span class="mark">❯</span> step 7 · your API key (token)</div>
-    <h2>Generate your <b>access token</b></h2>
+    <div class="kicker"><span class="mark">❯</span> step 5 · copy the one value we need</div>
+    <h2>Generate your <span class="o">access token</span></h2>
     <div class="th" lang="th">สร้าง access token — นี่คือ "API key" ที่ระบบใช้ทำงานแทนคุณ</div>
     <div class="step">
-      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">The "Generate access token" button + the token result (blur the token value)</span><span class="file">screens/07-generate-token.png</span></div><img src="screens/07-generate-token.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="shot"><div class="ph"><span class="tag">privacy-safe example</span><span class="desc">Meta reveals the token once. Copy it directly — never photograph or screen-share the raw value.</span><span class="file">IGQV••••••••••••••••••••</span></div></div>
       <div class="guide">
         <div class="num">DO THIS</div>
-        <div class="do">On the Instagram API setup page → <b>Generate access token</b> → approve the permission screen → copy the long token.</div>
+        <div class="do">Approve the Instagram permission screen → click <b>Generate token</b> beside your account → copy the long token once.</div>
         <div class="keychip"><span class="k">Access token</span><span class="v">IGQV…</span></div>
-        <div class="pill info"><span class="ico">◆</span><span>This token lasts ~60 days; the assistant will help you refresh it later. <span class="th" lang="th">โทเคนอยู่ได้ ~60 วัน เดี๋ยวช่วยต่ออายุให้</span></span></div>
+        <div class="pill warn"><span class="ico">▲</span><span>Do not photograph the raw token. Do not paste App Secret. The assistant needs <b>only this access token</b>.</span></div>
       </div>
     </div>
   </section>
 
-  <!-- 8 · privacy url -->
+  <!-- 6 · CONDITIONAL PUBLISH -->
   <section class="frame">
-    <div class="kicker"><span class="mark">❯</span> step 8 · privacy policy URL</div>
-    <h2>Add a <b>Privacy Policy URL</b> (needed to publish)</h2>
-    <div class="th" lang="th">ใส่ลิงก์ Privacy Policy — จำเป็นก่อนกด publish</div>
+    <div class="kicker"><span class="mark">❯</span> step 6 · stop unless Meta blocks you</div>
+    <h2><b>Publish is not the default</b> for this workshop bot</h2>
+    <div class="th" lang="th">บอทในคลาสไม่ใช้ webhook — ยังไม่ต้อง Publish ถ้า Meta ไม่ได้บังคับ</div>
     <div class="step">
-      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">App settings → Basic → the Privacy Policy URL field filled in</span><span class="file">screens/08-privacy-url.png</span></div><img src="screens/08-privacy-url.png" alt="" onerror="this.style.display='none'"></div>
+      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">Publish screen — troubleshooting only</span><span class="file">screens/06-optional-publish.png</span></div><img src="screens/06-optional-publish.png" alt="" onerror="this.style.display='none'"></div>
       <div class="guide">
-        <div class="num">DO THIS</div>
-        <div class="do">App settings → Basic → paste a real, reachable <b>Privacy Policy URL</b> → <b>Save Changes</b>.</div>
+        <div class="num">WHY</div>
+        <div class="do">Meta requires Published state for <b>webhooks</b>. This student bot polls the Instagram account the student owns and does not configure webhooks.</div>
         <ul>
-          <li>Don't have one? The assistant can publish a 2-minute policy page for you — just ask.</li>
+          <li>If token generation and dry-run work, keep going.</li>
+          <li>If Meta explicitly blocks the own-account flow, raise your hand.</li>
         </ul>
+        <div class="pill warn"><span class="ico">▲</span><span>Do not click Tech Provider, start App Review, or invent a fake Privacy Policy URL.</span></div>
       </div>
     </div>
   </section>
 
-  <!-- 9 · publish -->
+  <!-- 7 · HANDOFF -->
   <section class="frame">
-    <div class="kicker"><span class="mark">❯</span> step 9 · go live</div>
-    <h2><b>Publish</b> the app — this is what makes it work on real followers</h2>
-    <div class="th" lang="th">กด Publish — ขั้นนี้แหละที่ทำให้บอทเห็นคอมเมนต์ของคนจริง ๆ</div>
+    <div class="kicker"><span class="mark">❯</span> step 7 · handoff to the assistant</div>
+    <h2>Give Claude <span class="o">only the access token</span></h2>
+    <div class="th" lang="th">ส่งให้ Claude แค่ access token ค่าเดียว</div>
     <div class="step">
-      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">Left sidebar → Publish, showing the "Unpublished" badge flipping after publishing</span><span class="file">screens/09-publish.png</span></div><img src="screens/09-publish.png" alt="" onerror="this.style.display='none'"></div>
-      <div class="guide">
+      <div class="guide" style="grid-column:1 / -1;">
         <div class="num">DO THIS</div>
-        <div class="do">Left sidebar → <b>Publish</b> → confirm. The <code>Unpublished</code> badge disappears.</div>
-        <div class="pill warn"><span class="ico">▲</span><span>Skip this and the bot sees <b>zero comments</b> from normal followers. This step is the usual "why isn't it working".</span></div>
+        <div class="do">Back in Claude, say: <code>I have my Instagram access token. Save it locally and set up the bot.</code></div>
+        <div class="keychip"><span class="k">IG_ACCESS_TOKEN</span><span class="v">IGQV…</span></div>
+        <div class="pill info"><span class="ico">◆</span><span>Claude stores it in a gitignored <code>.env</code>. The bot discovers <code>IG_USER_ID</code> automatically on first run.</span></div>
       </div>
     </div>
   </section>
 
-  <!-- 10 · paste keys -->
-  <section class="frame">
-    <div class="kicker"><span class="mark">❯</span> step 10 · hand the keys to the assistant</div>
-    <h2>Paste your three values where the assistant asks</h2>
-    <div class="th" lang="th">เอา 3 ค่านี้ไปวางตรงที่ผู้ช่วยบอก แล้วมันจะตั้งค่าให้เอง</div>
-    <div class="step">
-      <div class="shot"><div class="ph"><span class="tag">screenshot</span><span class="desc">Terminal/Claude asking for the keys, values pasted (blurred) — optional</span><span class="file">screens/10-paste-keys.png</span></div><img src="screens/10-paste-keys.png" alt="" onerror="this.style.display='none'"></div>
-      <div class="guide">
-        <div class="num">DO THIS</div>
-        <div class="do">Back in Claude, tell it you have your keys. It will save them safely and wire up the bot.</div>
-        <div class="keychip"><span class="k">App ID</span></div><div class="keychip"><span class="k">App Secret</span></div><div class="keychip"><span class="k">Access token</span></div>
-        <div class="pill info"><span class="ico">◆</span><span>The assistant stores these in a private <code>.env</code> file on your computer — they never leave your machine.</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 11 · DONE / test -->
+  <!-- DONE / TEST -->
   <section class="frame">
     <div class="kicker"><span class="mark">❯</span> done · test it for real</div>
     <h2>Test it — the right way</h2>

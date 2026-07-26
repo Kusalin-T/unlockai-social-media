@@ -25,7 +25,11 @@ Wait for "installed successfully", then **close the terminal and open a new one 
 
 ## 3. Open Claude and log in
 
-Type:
+First verify the install:
+```
+claude --version
+```
+Then open Claude:
 ```
 claude
 ```
@@ -43,9 +47,11 @@ Set up my UnlockAI: Social Media workspace. Read and follow every step in https:
 
 - If it asks permission to run a command / access the internet → click **Allow (Yes)**
 - The AI downloads the repo into `Downloads/unlockai-social-media` and verifies the files
-- When it's done it tells you to **reopen `claude` inside that folder** — do what it says, then type `/brand`
+- When it's done it tells you to **reopen `claude` inside that folder** — do what it says, then
+  type `/` and confirm the five workshop commands appear
+- **In class:** stop there and wait for the next gate. **On your own:** start with `/brand`
 
-If the AI replies and the download is complete = you're ready 🎉 Go back to [README.md](README.md) and start with `/brand`.
+If the AI replies and the download is complete = you're ready 🎉
 
 ---
 
@@ -63,7 +69,8 @@ curl -fsSL https://codeload.github.com/Kusalin-T/unlockai-social-media/tar.gz/re
 mv ~/Downloads/unlockai-social-media-master ~/Downloads/unlockai-social-media
 cd ~/Downloads/unlockai-social-media && claude
 ```
-Then type `/brand`.
+Then type `/` to confirm the five commands appear. In class, wait for the next gate; on your own,
+start with `/brand`.
 
 ---
 
@@ -72,7 +79,7 @@ Then type `/brand`.
 | Symptom | Fix |
 |---|---|
 | `command not found: claude` | Close the terminal, open a new one, try again |
-| Windows complains about execution policy | Open PowerShell as "Run as Administrator", run the install line again |
+| Windows complains about execution policy | In the same PowerShell window run `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass -Force`, then run the install line again |
 | Login fails | Open the login link in Chrome instead of your default browser |
 | Slow / stuck | Check your internet, type `/quit`, then reopen `claude` |
 

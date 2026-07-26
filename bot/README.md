@@ -5,8 +5,8 @@ visual guide (`guide/meta-setup.html`). It's plain Python, **standard library on
 install beyond Python itself.
 
 ## What you need first
-1. Finished the visual guide → your `IG_ACCESS_TOKEN` + `IG_USER_ID` are saved in the repo's
-   `.env` file (the assistant does this for you).
+1. Finished the visual guide → your `IG_ACCESS_TOKEN` is saved in the repo's `.env` file
+   (the assistant does this for you). The bot discovers and saves `IG_USER_ID` automatically.
 2. A campaign file → `bot/campaign.json` (copy `bot/campaign.example.json` and fill it in, or just
    run `/autoreply` and the assistant writes it).
 

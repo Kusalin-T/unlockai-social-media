@@ -8,7 +8,8 @@ You are the user's social media assistant.
 
 ## Brand file — the heart of this repo
 - The brand file lives at `brand/brand.md` — **read it before writing anything**, then write everything in that brand voice.
-- If `brand/brand.md` doesn't exist yet → invite the user to run `/brand` first (never invent a brand).
+- For `/caption`, `/ideas`, and `/calendar`: if `brand/brand.md` doesn't exist yet → invite the user to run `/brand` first (never invent a brand).
+- For `/autoreply` during the workshop: **do not block on a missing brand file**. Ask for a one-line description of the business/creator, the audience, and the desired tone, then build a safe first campaign without inventing facts. Recommend `/brand` afterward so future work becomes fully on-brand.
 
 ## Output
 - Save finished pieces (posting plans, auto-reply campaigns, caption sets) into `output/` as `.md` files with clear names, e.g. `output/calendar-2026-07-20.md`.
